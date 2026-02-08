@@ -1,0 +1,56 @@
+nav {
+    width: 100%;
+    background: #111827;
+    /* gris-azul oscuro */
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
+}
+ 
+/* Lista horizontal */
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    /* para que no rompa en móvil */
+}
+ 
+/* Items */
+nav li {
+    color: #e5e7eb;
+    /* texto claro */
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    transition: background 180ms ease, color 180ms ease, transform 120ms ease;
+}
+ 
+/* Hover / foco */
+nav li:hover {
+    background: rgba(255, 255, 255, 0.10);
+    transform: translateY(-1px);
+}
+ 
+nav li:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.14);
+}
+ 
+/* Separador visual opcional para "Logout" (último) */
+nav li:last-child {
+    margin-left: auto;
+    /* empuja Logout a la derecha */
+    background: rgba(239, 68, 68, 0.15);
+    color: #fecaca;
+}
+ 
+nav li:last-child:hover {
+    background: rgba(239, 68, 68, 0.22);
+}
