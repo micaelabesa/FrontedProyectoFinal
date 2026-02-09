@@ -76,20 +76,105 @@ Para efectuar esta API paso a paso documentaremos los steps:
 }
 OBJETO DE TIPO IUsuario ( lo creo)
 
-- he comentado lo de fecha de nacimiento porque no pusimos ese campo en el backend y en cambi si pusimo sedd
+- he comentado lo de fecha de nacimiento porque no pusimos ese campo en el backend y en cambi si pusimo edad
 
--hacer el footer en un componente y engancharlo en app.html para que se vea en todas las paginas ❌ falta
--dar formato a los formularios y registros ❌ falta
--poner bonita la nav-bar y olocar los @if para que aparezcan como lo hio mario la utima clase y los warnings esos ( las dependencias que no me acuerdo comose kkaman aca ) ❌ falta
--inverntarse el logo y ponerlo en la landing page ❌ falta
--poner en la landing page al final el mapa del restaurante y algun articulo tipo que dice la gente yo que se ❌ falta
--tema de reservas ? ❌ falta
--que a cada card de la pgina menus , se le aparezca un boton de reservar si el usuario esta logueado. mismo dentro de las especificaciones ❌ falta
--formulario : validad la edaad por ejemplo que si es menor no entra ❌ falta
--una pagina de not found ? o el path a la home ? ❌ falta
--pagina de login que se puede hacer con esas alertas que dijo mario en la ultima clase ❌ falta
--conecar el login con el backend ❌ falta
--pagina de usuarios ?
+### METODO LOGIN /auth/login
+
+### RESPONSE : TYPE = LoginResponse
+
+{
+"msg": "Login correcto",
+"Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwibm9tYnJlIjoiTWF0aWFzIiwicm9sIjoiY2xpZW50ZSIsImV4cCI6MTc3MDY0NDg2Mn0.Cum8K6MqzLlDJ5cAaT_4iI3EMNOHLACcHDJLk8COJ0k",
+"user": {
+"id": 6,
+"nombre": "Matias",
+"apellido": "Haro",
+"email": "user@example.com",
+"telefono": "630726647",
+"edad": 38,
+"alergias": "nada",
+"rol": "cliente"
+}
+}
+
+Creamos en IUsuarios las interfaces de Loginregistro y response
+export interface ILogin {
+email: string;
+password: string;
+}
+
+export interface LoginResponse {
+msg: string;
+token: string;
+item: IUsuario;
+}
+
+creamos la pagina de login y creamos $ ng generate interceptor interceptors/Auth --skip-tests
+-En el app.config.ts hay que onfigurar el interceptor:
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+
+const token = localStorage.getItem('token');
+
+if (token) {
+const reqClone = req.clone({
+setHeaders: {
+Authorization: token,
+},
+});
+return next(reqClone);
+}
+
+return next(req);
+};
+
+### CREAMOS LOS GUARD// BLOUEAN EL ACCESO A CIERTAS PAGINAS SI NO SE CUMPPLEN CIERTAS CONDCIONES
+
+ng generate guard guards/Auth --skip-tests y les ponemos los guards a las rutas pedidos/admin/reservas
+
+###TODO:
+
+## 1/ EL FORMULARIO DE RESERVAS : debe tener mesa o ea ue elijan mesa por un desplegable
+
+## tenemos segun el backend 5 mesas con estas capacidades .
+
+id | nº mesa | capacidad | is active
+1 1 2 1
+2 2 2 1
+3 3 4 1
+4 4 4 1
+5 5 6 1
+
+### 2/ Y PREGUNTAR A MARIO TEMA TABLAS COMO ENLAZAMOS RESERAS Y MESAS .. PARA ENGANCHAR CON ESTE FORMULARIO
+
+### 3/ login , si es admin redirijo a dashboard, si es cliente a reseervas hacer un if dentro del ts de login . hora mismo esta redireccionando a reservas siempre.
+
+### 4 / logout logout que aparezca en el navbar y == > ponerle un evento al boton y borrar el localstorage token ESTO EN EL TS DE LA NAVBAR
+
+onLogOut() {
+//borro el token
+localStorage.removeItem('token');
+//redirecicion al login
+// o aerta de verdad quieres salir ? bla bl
+this.router.navigateByUrl('/login')
+}
+
+### 5/ NAV BAR @if isLoggedcliente () ve pedidos reservas logout
+
+### @ifis logged admin ve todo + admindashboard // como hago esta distincion ?
+
+### 6/ que a cada card de la pgina menus , se le aparezca un boton de reservar si el usuario esta logueado. mismo dentro de las especificaciones ❌ falta
+
+### 7/ formulario : validad la edaad por ejemplo que si es menor no entra ❌ falta
+
+### 8/ una pagina de not found ? o el path a la home ? ❌ falta
+
+### 9/ formulario de registro ponerle al password un toggle par que se ueda paretar y ver la contraseña ue se esta escribiendo
+
+### 10 / rutas post y put de la pagina dashboard
+
+### 11/ BOTONES DE VOLVER POR TODOS LADOS
+
+sugerencias ; cambiar el formulario para que quede mas ancho no ?
 
 ## resumen conexiones con backend:
 

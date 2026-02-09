@@ -1,0 +1,30 @@
+<div class="login-wrapper d-flex justify-content-center align-items-center">
+    <div class="login-container bg-dark text-white p-5 shadow-lg">
+
+        <div class="text-center mb-4">
+            <h1 class="text-warning fw-bold">Login</h1>
+            <p class="text-white-50">Accede a tu panel de gestión</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="nombre@ejemplo.com">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100 fw-bold py-3 mt-2">
+                ENTRAR
+            </button>
+
+            <div class="text-center mt-4">
+                <a href="/registro" class="text-warning text-decoration-none small">¿No tienes cuenta? Regístrate
+                    aquí</a>
+            </div>
+        </form>
+    </div>
+</div>
