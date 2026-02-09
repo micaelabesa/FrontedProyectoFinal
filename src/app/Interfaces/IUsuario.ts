@@ -16,3 +16,14 @@ export interface RegisterResponse {
   msg: string;      // Mensaje informativo: "usuario registrado correctamente"
   item: IUsuario;   // El objeto usuario creado
 }
+
+export interface ILogin {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  msg: string;
+  token: string;
+  item: IUsuario;
+}

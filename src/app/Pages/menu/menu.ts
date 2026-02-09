@@ -3,6 +3,7 @@ import { IMenu } from "../../Interfaces/IMenu";
 import { Menus } from "../../Services/menus";
 import { CardMenu } from "../../Components/card-menu/card-menu";
 import { IMenuDetalle } from "../../Interfaces/IMenuDetalle";
+import { ActivatedRoute } from '@angular/router'
 
  
 @Component ({
@@ -15,7 +16,8 @@ import { IMenuDetalle } from "../../Interfaces/IMenuDetalle";
  
 export class Menu {
  
-
+  private route = inject(ActivatedRoute);
+  
     arrMenu = signal<IMenu[]>([]);
     MenuService = inject(Menus);
     menuSeleccionado = signal<IMenuDetalle | null>(null);
@@ -24,6 +26,12 @@ export class Menu {
       const response= await this.MenuService.getAll();
       console.log(response);
       this.arrMenu.set(response);
+
+      //preguntar a mario esta parte es porque quiero usar el compinente creado para otro padre. me hizo poner la ruta, el active y esto ) funciona pero tarda
+      const idParam = this.route.snapshot.paramMap.get('id');
+        if (idParam) {
+            this.cargarDetalle(Number(idParam));
+        }
   }
   
   async cargarDetalle(id: number) {

@@ -1,7 +1,10 @@
-<div class="titleregistro">
-    <h1>Registro</h1>
-    <p>Complete todos los campos para registrarse!</p>
-</div>
+<div class="registro-wrapper d-flex justify-content-center align-items-center py-5">
+<div class="form-container bg-dark text-white p-4 p-md-5 shadow-lg">
+
+    <div class="titleregistro text-center mb-4">
+        <h1 class="text-warning fw-bold">Registro</h1>
+        <p class="text-white-50">Complete todos los campos para registrarse</p>
+    </div>
 
 
 <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
@@ -90,3 +93,6 @@
 
     <input type="submit" value="Enviar" class="btn btn-info">
 </form>
+
+</div>
+</div>
