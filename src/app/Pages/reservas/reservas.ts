@@ -1,101 +1,113 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ReservaService } from '../../Services/reserva-service';
+import { IMesa } from '../../Interfaces/IMesa';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-reservas',
+  selector: 'app-reserva',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './reservas.html',
-  styleUrls: ['./reservas.css'],
+  styleUrl: './reservas.css'
 })
-export class Reservas {
+export class Reserva implements OnInit {
+  // Inyecciones de dependencia
+  private reservaService = inject(ReservaService);
+  private router = inject(Router);
+  message: string = '';
+  success: boolean = false;
+  // Variables de estado
+  mesas: IMesa[] = [];
   loading = false;
-  message = '';
-  success = false;
-
-  sedes = ['UpgradeFood Centro', 'UpgradeFood Norte', 'UpgradeFood Playa'];
-
-  horas = [
-    '12:30', '13:00', '13:30', '14:00', '14:30', '15:00',
-    '20:00', '20:30', '21:00', '21:30', '22:00', '22:30'
+  minDate = new Date().toISOString().split('T')[0];
+  
+  // Opciones para el select de horas
+  horas: string[] = [
+    '13:00', '13:30', '14:00', '14:30', 
+    '20:00', '20:30', '21:00', '21:30', '22:00'
   ];
 
-  personasList = [1, 2, 3, 4, 5, 6, 7, 8];
+  // Definición del Formulario según tus columnas SQL
+  reservaForm: FormGroup = new FormGroup({
+    fecha: new FormControl('', [Validators.required]),
+    hora: new FormControl('', [Validators.required]),
+    mesa_id: new FormControl('', [Validators.required]),
+    party_size: new FormControl(1, [Validators.required, Validators.min(1)]),
+    resena: new FormControl('') // Usamos la columna resena como observaciones
+  });
 
-  minDate = this.formatDate(new Date());
-
-  // 👇 IMPORTANTE: no uses this.fb aquí arriba
-  form: any;
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      sede: ['', Validators.required],
-      fecha: ['', Validators.required],
-      hora: ['', Validators.required],
-      personas: ['', Validators.required],
-
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
-      apellidos: ['', [Validators.required, Validators.minLength(2)]],
-      telefono: ['', [Validators.required, Validators.pattern(/^[0-9+()\s-]{7,}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-
-      comentarios: [''],
-      acepta: [false, Validators.requiredTrue],
-    });
+  // Al iniciar, traemos las mesas para que aparezcan en el selector
+  async ngOnInit() {
+    try {
+      this.mesas = await this.reservaService.getMesas();
+    } catch (error) {
+      console.error('Error al cargar las mesas:', error);
+      Swal.fire('Error', 'No se pudieron cargar las mesas disponibles', 'error');
+    }
   }
 
+  // Helper para mostrar errores en el HTML
   showError(controlName: string): boolean {
-    const c = this.form.get(controlName);
-    return !!c && c.invalid && (c.touched || c.dirty);
+    const control = this.reservaForm.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
-  reset() {
-    this.form.reset({
-      sede: '',
-      fecha: '',
-      hora: '',
-      personas: '',
-      nombre: '',
-      apellidos: '',
-      telefono: '',
-      email: '',
-      comentarios: '',
-      acepta: false,
-    });
-    this.message = '';
-    this.success = false;
-  }
-
+  // Envío del formulario
   async onSubmit() {
-    this.message = '';
-    this.success = false;
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      this.message = 'Revisa los campos marcados.';
+    if (this.reservaForm.invalid) {
+      this.reservaForm.markAllAsTouched();
       return;
     }
 
     this.loading = true;
 
+    // Preparamos los datos convirtiendo IDs y tamaños a números
+    const datosReserva = {
+      ...this.reservaForm.value,
+      mesa_id: Number(this.reservaForm.value.mesa_id),
+      party_size: Number(this.reservaForm.value.party_size),
+      estado: 'confirmada' // Estado por defecto según tu ENUM
+    };
+
     try {
-      await new Promise((r) => setTimeout(r, 700));
-      this.success = true;
-      this.message = 'Reserva enviada. Te confirmaremos lo antes posible.';
-      this.reset();
-    } catch {
-      this.success = false;
-      this.message = 'No se pudo enviar la reserva. Inténtalo de nuevo.';
+      // Llamada al backend de Python
+      const response = await this.reservaService.createReserva(datosReserva);
+
+      await Swal.fire({
+        title: '¡Reserva Confirmada!',
+        text: `${response.msg}. Tu código de reserva es el #${response.item.id}`,
+        icon: 'success',
+        confirmButtonColor: '#ffc107'
+      });
+
+      // Redirigimos a la home o a "mis reservas"
+      this.router.navigateByUrl('/home');
+
+    } catch (error: any) {
+      console.error('Error en la reserva:', error);
+      
+      // Capturamos el error 400 del backend (Mesa ya ocupada)
+      Swal.fire({
+        title: 'No disponible',
+        text: error.error?.detail || 'Hubo un problema al procesar tu reserva',
+        icon: 'warning',
+        confirmButtonColor: '#ffc107'
+      });
     } finally {
       this.loading = false;
     }
   }
 
-  private formatDate(d: Date): string {
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    const dd = String(d.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
+  // Método para resetear el formulario
+  resetForm() {
+    this.reservaForm.reset({
+      party_size: 1,
+      fecha: '',
+      hora: '',
+      mesa_id: '',
+      resena: ''
+    });
   }
 }

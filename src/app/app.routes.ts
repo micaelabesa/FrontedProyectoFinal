@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { Home } from './Pages/home/home';
 import { Login } from './Pages/login/login';
 import { Registro } from './Pages/registro/registro';
-import { Reservas } from './Pages/reservas/reservas';
+import { Reserva } from './Pages/reservas/reservas';
 import { Pedidos } from './Pages/pedidos/pedidos';
 import { ListaPlatos } from './Pages/lista-platos/lista-platos';
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
@@ -15,12 +15,11 @@ export const routes: Routes = [
     { path: 'menus', component: Menu },
     { path: 'login', component: Login },
     { path: 'registro', component: Registro },
-    { path: 'reservas', component: Reservas },
     { path: 'pedidos', component: Pedidos, canActivate: [authGuard] },
     { path: 'lista_platos', component: ListaPlatos },
     { path: 'admin', component: AdminDashboard, canActivate: [authGuard] },
     { path: 'menus/:id', component: Menu },
-    { path: 'reserva', component: Reservas, canActivate: [authGuard] },
+    { path: 'reserva', component: Reserva, canActivate: [authGuard] },
     {path:'login', component: Login},
     
 ];
