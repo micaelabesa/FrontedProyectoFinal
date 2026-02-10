@@ -2,7 +2,7 @@ import { Injectable, inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { IMenu } from '../Interfaces/IMenu';
-import { IMenuDetalle } from '../Interfaces/IMenuDetalle';
+import { IMenuDetalle, IVinculoPlato } from '../Interfaces/IMenuDetalle';
 
 
 
@@ -28,12 +28,20 @@ export class Menus {
   createMenu(menu: IMenu) {
     return firstValueFrom(
       this.HttpClient.post<IMenu>(`${this.base_url}/menus-semanales`, menu)
- )}
+    )
+  }
 
   deleteMenu(id: number) {
-  return firstValueFrom(
-    this.HttpClient.delete<{"msg": string}>(`${this.base_url}/menus-semanales/${id}`)
-  );
-}
+    return firstValueFrom(
+      this.HttpClient.delete<{ "msg": string }>(`${this.base_url}/menus-semanales/${id}`)
+    );
+  }
+  
+  vincularPlato(datos: IVinculoPlato) {
+    return firstValueFrom(
+      this.HttpClient.post<any>(`${this.base_url}/menu-semanal-platos`, datos)
+    );
 
+// ###TODO: me marie con este any no se que poner aca 
+  }
 }

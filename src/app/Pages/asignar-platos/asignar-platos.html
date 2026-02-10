@@ -1,0 +1,57 @@
+@if (listaPlatosDB.length === 0) {
+<div class="alert alert-info">Cargando platos desde el servidor...</div>
+}
+
+<div class="create-menu-container">
+    <div class="form-card animate__animated animate__fadeIn">
+        <div class="header-section mb-4">
+            <h2 class="fw-bold text-dark">Configurar Menú <span class="text-warning">#{{menuId}}</span></h2>
+            <p class="text-muted">Asigna platos y define su rol (Entrante, Principal o Postre)</p>
+        </div>
+
+        <div class="platos-scroll-area">
+            @for (categoria of ['entrante', 'sashimi', 'nigiri', 'maki', 'bao', 'postre']; track categoria) {
+
+            <h5 class="category-title mt-4">{{ categoria | uppercase }}</h5>
+            <hr>
+
+            @for (plato of listaPlatosDB; track plato.id) {
+
+            @if (plato.categoria.toLowerCase().trim() === categoria.toLowerCase().trim()) {
+
+            <div class="plato-item d-flex align-items-center justify-content-between p-3 mb-2">
+                <div class="d-flex align-items-center">
+                    <img [src]="plato.imagen_url" class="img-thumbnail me-3 shadow-sm" alt="Imagen del plato"
+                        style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+
+                    <div>
+                        <h6 class="mb-0 text-dark fw-bold">{{ plato.nombre }}</h6>
+                        <small class="text-muted">{{ plato.precio }}€</small>
+                    </div>
+                </div>
+
+                <select class="form-select form-select-sm w-auto border-2" (change)="onRoleChange(plato, $event)"
+                    style="border-color: #eee;">
+                    <option value="">No incluir</option>
+                    <option value="entrante">Entrante</option>
+                    <option value="principal">Principal</option>
+                    <option value="postre">Postre</option>
+                </select>
+            </div>
+            }
+            }
+            }
+        </div>
+
+        <div class="actions-footer mt-5 d-grid gap-2">
+            <button class="btn btn-save py-3 shadow" (click)="confirmarAsignacion()"
+                [disabled]="platosParaAsignar.length === 0">
+                <i class="fas fa-save me-2"></i>Finalizar y Guardar Configuración
+            </button>
+
+            <button class="btn btn-link text-muted text-decoration-none" routerLink="/admin">
+                <i class="fas fa-times me-1"></i> Cancelar y volver al Dashboard
+            </button>
+        </div>
+    </div>
+</div>

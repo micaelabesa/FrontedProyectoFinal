@@ -9,6 +9,7 @@ import { ListaPlatos } from './Pages/lista-platos/lista-platos';
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { authGuard } from './guards/auth-guard';
 import { CreateMenu } from './Components/create-menu/create-menu';
+import { AsignarPlatos } from './Pages/asignar-platos/asignar-platos';
 
 export const routes: Routes = [
     { path: '', component: Home },
@@ -22,7 +23,8 @@ export const routes: Routes = [
     { path: 'menus/:id', component: Menu },
     { path: 'reserva', component: Reserva, canActivate: [authGuard] },
     { path: 'login', component: Login },
-    { path: 'admin/create-menu', component: CreateMenu }
+    { path: 'admin/create-menu', component: CreateMenu },
+    { path: 'admin/asignar-platos/:id', component: AsignarPlatos}
     
 ];
 
