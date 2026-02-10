@@ -22,7 +22,6 @@ export const routes: Routes = [
     { path: 'admin', component: AdminDashboard, canActivate: [authGuard] },
     { path: 'menus/:id', component: Menu },
     { path: 'reserva', component: Reserva, canActivate: [authGuard] },
-    { path: 'login', component: Login },
     { path: 'admin/create-menu', component: CreateMenu },
     { path: 'admin/asignar-platos/:id', component: AsignarPlatos}
     
