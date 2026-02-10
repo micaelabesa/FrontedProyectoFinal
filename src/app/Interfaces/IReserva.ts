@@ -1,10 +1,10 @@
 export interface ReservaCreate {
-  fecha: string;
-  hora: string;
-  mesa_id: number;
-  party_size: number;
-  resena?: string;
-}
+    fecha: string;
+    hora: string;
+    mesa_id: number;
+    party_size: number;
+    resena?: string;
+}  
 
 export interface ReservaResponse {
     msg: string;

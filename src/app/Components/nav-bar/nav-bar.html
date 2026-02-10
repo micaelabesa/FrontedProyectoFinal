@@ -1,16 +1,16 @@
 <header class="site-header">
     <nav class="navbar">
         <!-- Botón hamburguesa (izquierda) -->
-        <button class="hamburger" type="button" (click)="toggleMenu()" aria-label="Abrir menú">
+        <button class="hamburger" type="button" (click)="toggleMenu()" aria-label="Abrir menú" [class.open]="menuOpen">
             <span></span><span></span><span></span>
         </button>
 
         <!-- Logo centrado -->
         <a class="brand" routerLink="/" aria-label="Home">
-            <img class="logo" src="assets/images/Captura de pantalla 2026-02-09 a las 14.16.55.jpeg" alt="Logo">
+            <img class="logo" src="assets/images/Captura de pantalla 2026-02-09 a las 14.16.55.jpeg" alt="Logo" />
         </a>
 
-        <!-- Acciones derecha (como en la foto) -->
+        <!-- Acciones derecha -->
         <div class="right-actions">
             <a class="pill" routerLink="/reserva">Reservar</a>
             <a class="pill" routerLink="/pedidos">Hacer pedido</a>
@@ -30,35 +30,42 @@
 
         <ul class="drawer-links">
             <li>
-                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-                    (click)="closeMenu()">Inicio</a>
+                <a class="drawer-pill" routerLink="/" routerLinkActive="active"
+                    [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Inicio</a>
             </li>
+
             <li>
-                <a routerLink="/menus" routerLinkActive="active" (click)="closeMenu()">Carta</a>
+                <a class="drawer-pill" routerLink="/menus" routerLinkActive="active" (click)="closeMenu()">Carta</a>
             </li>
+
             <li>
-                <a routerLink="/lista_platos" routerLinkActive="active" (click)="closeMenu()">Sugerencias</a>
+                <a class="drawer-pill" routerLink="/lista_platos" routerLinkActive="active"
+                    (click)="closeMenu()">Sugerencias</a>
             </li>
 
             <li class="divider"></li>
 
             <li>
-                <a routerLink="/reservas" routerLinkActive="active" (click)="closeMenu()">Reservas</a>
+                <a class="drawer-pill" routerLink="/reservas" routerLinkActive="active"
+                    (click)="closeMenu()">Reservas</a>
             </li>
+
             <li>
-                <a routerLink="/pedidos" routerLinkActive="active" (click)="closeMenu()">Pedidos</a>
+                <a class="drawer-pill" routerLink="/pedidos" routerLinkActive="active" (click)="closeMenu()">Pedidos</a>
             </li>
 
             <li class="divider"></li>
 
             <li class="auth">
-                <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Log in</a>
-                <span>/</span>
-                <a routerLink="/registro" routerLinkActive="active" (click)="closeMenu()">Registro</a>
+                <a class="drawer-pill auth-pill" routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Log
+                    in</a>
+
+                <a class="drawer-pill auth-pill" routerLink="/registro" routerLinkActive="active"
+                    (click)="closeMenu()">Registro</a>
             </li>
 
             <li>
-                <a href="#" (click)="onLogout(); $event.preventDefault(); closeMenu()">Logout</a>
+                <a href="#" class="drawer-pill" (click)="onLogout(); $event.preventDefault(); closeMenu()">Logout</a>
             </li>
         </ul>
     </aside>

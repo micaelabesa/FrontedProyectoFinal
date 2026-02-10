@@ -20,7 +20,7 @@
 
 /* Estilo de los Labels */
 .form-label {
-    color: #ffc107;
+    color: #e6dcc9;
     /* Dorado */
     font-weight: 600;
     font-size: 0.9rem;
@@ -43,8 +43,8 @@
 
 .form-control:focus {
     background-color: #333 !important;
-    border-color: #ffc107;
-    box-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
+    border-color: #e6dcc9;
+    box-shadow: 0 0 10px #e6dcc9;
     outline: none;
 }
 
@@ -59,7 +59,7 @@
     top: 38px;
     background: none;
     border: none;
-    color: #ffc107;
+    color: #e6dcc9;
     cursor: pointer;
     z-index: 10;
     transition: transform 0.2s, opacity 0.2s;
@@ -79,7 +79,7 @@
 /* Botón de Enviar */
 .btn-warning {
     padding: 0;
-    background: linear-gradient(45deg, #ffc107, #ff9800);
+    background: linear-gradient(45deg, #e6dcc9, #786460);
     border: none;
     border-radius: 12px;
     color: #1a1a1a;
@@ -88,7 +88,8 @@
 }
 /* 
 .btn-warning:hover {
-    background: linear-gradient(45deg, #ffca2c, #ffa000);
+    background: linear-gradient(45deg, #e6dcc9,
+        #786460);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4); */
 /* } */
@@ -96,7 +97,7 @@
 /* Link de registro */
 /* .text-warning:hover {
     text-decoration: underline !important;
-    color: #ffca2c !important;
+    color:#e6dcc9, !important;
 } */
 
 .login-container button[routerLink="/registro"] {

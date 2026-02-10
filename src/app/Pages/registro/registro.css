@@ -15,7 +15,7 @@
     }
 
     .titleregistro h1 {
-        color: #ffc107;
+        color: #e6dcc9;
         font-size: 2.5rem;
         font-weight: bold;
     }
@@ -36,7 +36,7 @@
 
     .form-label {
         display: block;
-        color: #ffc107;
+        color: #e6dcc9;
         font-weight: 600;
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
@@ -54,7 +54,7 @@
 
     .form-control:focus {
         background-color: #333 !important;
-        border-color: #ffc107;
+        border-color: #e6dcc9;
         box-shadow: 0 0 8px rgba(255, 193, 7, 0.3);
         outline: none;
     }
@@ -89,7 +89,7 @@
     top: 38px;
     background: none;
     border: none;
-    color: #ffc107;
+    color: #e6dcc9;
     cursor: pointer;
     z-index: 10;
     transition: transform 0.2s, opacity 0.2s;
@@ -117,13 +117,13 @@
     font-weight: bold;
     border: none;
     cursor: pointer;
-    background-color: #ffc107;
+    background-color: #e6dcc9;
     color: #1a1a1a;
     transition: background-color 0.3s ease;
 }
 
 .btn-warning:hover {
-    background-color: #e0a800;
+    background-color: #e6dcc9;
 }
 
 /* Estilo para espaciado Bootstrap mb-3 */
