@@ -36,8 +36,9 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
       // Cargamos todos los platos disponibles de la DB
       // Asegúrate de que este método existe en tu servicio de Menus
       const response = await this.platosService.getAll();
-      console.log('Platos cargados en el componente:', this.listaPlatosDB);
+      
       this.listaPlatosDB = response;
+      console.log('Platos cargados en el componente:', this.listaPlatosDB);
     } catch (error) {
       console.error('Error al cargar platos:', error);
       Swal.fire('Error', 'No se pudieron cargar los platos del sistema', 'error');

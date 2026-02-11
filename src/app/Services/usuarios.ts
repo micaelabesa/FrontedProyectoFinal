@@ -34,4 +34,7 @@ export class Usuarios {
     return true;
   
   }
+
+//get all reservas //cancel reserva  / escribir reseña /
+
 }
