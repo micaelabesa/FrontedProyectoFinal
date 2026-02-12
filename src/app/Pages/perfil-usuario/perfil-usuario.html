@@ -1,64 +1,72 @@
 
-<!--<p>aca tiene que haber tipo un panel de control de cada usuario que diga hola nombre el npmbre lo sacamos de la base de datos en la tabla usuarios el campo es nombre,  hy otro campo apellido </p>
-<p>tiene que haber cards clicables o botones o lo que sea que diga por ejemplo VER RESERVAS / OTRO EFECTUAR RESERVAS / GESTIONAR RESERVA / ESCRIBIR RESEÑA </p>
-<p>CDA CARD O BOTON TIENE QUE RESPONDER A UN RUTA DEL BACKEND </p>
-<p>LA BASE URL ES ESTA : private base_url = 'https://upgradehubfinalproject-production.up.railway.app'; Y YA ESTA EL SERVICIO USUARIOS CREADOS </p>
+<!-- <p>LA BASE URL ES ESTA : private base_url = 'https://upgradehubfinalproject-production.up.railway.app'; Y YA ESTA EL SERVICIO USUARIOS CREADOS </p>
 <P>ENTONCES AÑADIREMOS ALLI LAS RUTAS QUE NECESITAMOS QUE SON ESTAS : GET MY RESERVAS /reservas/me </P>
-<h1>hello </h1>  -->
+<h1>hello </h1>   -->
+
 
 <div class="profile">
     <h1 class="title">Mi cuenta</h1>
 
     <!-- Datos usuario -->
-    <section class="card" *ngIf="usuario as u">
+    @if (usuario) {
+    <section class="card">
         <h2 class="card-title">Datos del usuario</h2>
 
         <div class="grid">
             <div class="row">
                 <span class="label">Nombre</span>
-                <span class="value">{{ u.nombre }} {{ u.apellido }}</span>
+                <span class="value">{{ usuario.nombre }} {{ usuario.apellido }}</span>
             </div>
 
             <div class="row">
                 <span class="label">Email</span>
-                <span class="value">{{ u.email }}</span>
+                <span class="value">{{ usuario.email }}</span>
             </div>
 
             <div class="row">
                 <span class="label">Teléfono</span>
-                <span class="value">{{ u.telefono }}</span>
+                <span class="value">{{ usuario.telefono }}</span>
             </div>
 
             <div class="row">
                 <span class="label">DNI</span>
-                <span class="value">{{ u.dni }}</span>
+                <span class="value">{{ usuario.dni }}</span>
             </div>
 
             <div class="row">
                 <span class="label">Edad</span>
-                <span class="value">{{ u.edad }}</span>
+                <span class="value">{{ usuario.edad }}</span>
             </div>
 
             <div class="row">
                 <span class="label">Alergias</span>
-                <span class="value">{{ u.alergias || '—' }}</span>
+                <span class="value">{{ usuario.alergias || '—' }}</span>
             </div>
         </div>
     </section>
+    }
 
     <!-- Mis reservas -->
     <section class="card">
         <h2 class="card-title">Mis reservas</h2>
 
-        <p class="state" *ngIf="loading">Cargando reservas…</p>
-        <p class="state error" *ngIf="!loading && error">{{ error }}</p>
+        @if (loading) {
+        <p class="state">Cargando reservas…</p>
+        }
+        @if (!loading && error) {
+        <p class="state error">{{ error }}</p>
+        }
 
-        <p class="state" *ngIf="!loading && !error && reservas.length === 0">
+        @if (!loading && !error && reservas().length === 0) {
+        <p class="state">
             No tienes reservas todavía.
         </p>
+        }
 
-        <div class="res-list" *ngIf="!loading && !error && reservas.length > 0">
-            <article class="res-item" *ngFor="let r of reservas">
+        @if (!loading && !error && reservas().length > 0) {
+        <div class="res-list">
+            @for (r of reservas(); track r.id) {
+            <article class="res-item">
                 <div class="res-grid">
                     <div class="cell">
                         <span class="label">Fecha</span>
@@ -91,11 +99,15 @@
                     </button>
                 </div>
 
-                <p class="review" *ngIf="r.resena">
-                    “{{ r.resena }}”
+                @if (r.resena) {
+                <p class="review">
+                    "{{ r.resena }}"
                 </p>
+                }
             </article>
+            }
         </div>
+        }
     </section>
 </div>
 

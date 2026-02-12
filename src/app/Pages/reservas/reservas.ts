@@ -83,7 +83,7 @@ export class Reserva implements OnInit {
       });
 
       // Redirigimos a la home o a "mis reservas"
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/landing');
 
     } catch (error: any) {
       console.error('Error en la reserva:', error);

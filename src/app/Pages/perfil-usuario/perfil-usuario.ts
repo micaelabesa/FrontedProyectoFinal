@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IUsuario } from '../../Interfaces/IUsuario';
@@ -17,7 +17,7 @@ export class PerfilUsuario implements OnInit {
 
   usuario: IUsuario | null = null;
 
-  reservas: IReserva[] = [];
+  reservas = signal<IReserva[]>([]);
   loading = true;
   error = '';
 
@@ -42,8 +42,11 @@ export class PerfilUsuario implements OnInit {
     this.error = '';
 
     try {
-      this.reservas = await this.reservaService.getMisReservas();
+      const response = await this.reservaService.getMisReservas();
+      this.reservas.set(response);
+      console.log('Reservas cargadas:', this.reservas());
     } catch (e) {
+      console.log(e);
       this.error = 'No se pudieron cargar tus reservas. ¿Has iniciado sesión?';
     } finally {
       this.loading = false;
@@ -76,7 +79,7 @@ export class PerfilUsuario implements OnInit {
     try {
       await this.reservaService.cancelarReserva(r.id);
       // quita de la lista sin recargar todo
-      this.reservas = this.reservas.filter(x => x.id !== r.id);
+      this.reservas.set(this.reservas().filter(x => x.id !== r.id));
     } catch (e) {
       alert('No se pudo cancelar la reserva.');
     }
