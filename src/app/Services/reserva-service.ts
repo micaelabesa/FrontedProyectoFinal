@@ -64,4 +64,13 @@ export class ReservaService {
       )
     );
   }
+  // ✅ GET /reservas (todas las reservas - gestión/admin)
+getallReservas() {
+  return firstValueFrom(
+    this.http.get<IReserva[]>(
+      `${this.base_url}/reservas`,
+      this.authHeaders()
+    )
+  );
+}
 }
