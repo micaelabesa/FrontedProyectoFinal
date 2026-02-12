@@ -33,7 +33,7 @@ editarPlato(id: number, plato: IPlato) {
 
   createPlato(plato: IPlato) {
     return firstValueFrom(
-      this.HttpClient.post<platoResponse>(`${this.base_url}/platos`, plato)
+      this.HttpClient.post<platoResponse>(`${this.base_url}/platos/`, plato)
     )
 
 

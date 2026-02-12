@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ReservaService } from '../../Services/reserva-service'; 
 import { IReserva } from '../../Interfaces/IReserva';
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-gestion-reservas', // Tu selector
@@ -18,6 +18,7 @@ export class GestionReservas implements OnInit { // Tu nombre de clase
   listaReservas: IReserva[] = [];
   isAdmin: boolean = false;
   userId: number | null = null;
+  router = inject(Router);
 
   async ngOnInit() {
     const role = localStorage.getItem('user_role');
@@ -43,6 +44,14 @@ export class GestionReservas implements OnInit { // Tu nombre de clase
       this.cdr.markForCheck();
     } catch (error) {
       console.error('Error al cargar las reservas:', error);
+    }
+  }
+
+  volver() {
+    if (this.isAdmin) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/perfil-usuario']);
     }
   }
 }

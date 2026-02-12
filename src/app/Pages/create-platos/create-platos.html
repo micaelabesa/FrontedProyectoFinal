@@ -64,7 +64,7 @@
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-warning fw-bold btn-lg"
-                    [disabled]="registroForm.invalid || !imagenUrlSubida">
+                    [disabled]="!registroForm.get('nombre')?.value || !imagenUrlSubida">
                     GUARDAR PLATO
                 </button>
                 <button type="button" class="btn btn-outline-secondary" (click)="router.navigate(['/admin/platos'])">

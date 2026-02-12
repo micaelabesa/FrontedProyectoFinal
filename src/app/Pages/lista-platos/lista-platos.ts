@@ -90,6 +90,12 @@ export class ListaPlatos implements OnInit {
       }
     }
   }
+
+  volver() {
+  // Usamos un ternario para decidir la ruta
+  const rutaDestino = this.isAdmin ? '/admin' : '/landing';
+  this.router.navigate([rutaDestino]);
+}
 }
  
 

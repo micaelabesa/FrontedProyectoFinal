@@ -31,40 +31,65 @@ export class CreatePlato {
   });
 
   // FUNCIÓN PARA SUBIR A CLOUDINARY
-  async onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
+async onFileSelected(event: any) {
+  const file = event.target.files[0];
+  if (!file) return;
 
-    // Feedback visual de carga
-    Swal.showLoading();
+  console.log('Archivo seleccionado:', file.name); // Chivato 1
 
-    const data = new FormData();
-    data.append('file', file);
-    data.append('upload_preset', 'Upgrade_food'); // REEMPLAZA CON TU PRESET
-    data.append('cloud_name', 'dej3mecyv');  // REEMPLAZA CON TU CLOUD NAME
+  Swal.fire({
+    title: 'Subiendo a Cloudinary...',
+    text: 'Por favor, espera',
+    allowOutsideClick: false,
+    didOpen: () => { Swal.showLoading(); }
+  });
 
-    try {
-      const resp = await fetch(`https://api.cloudinary.com/v1_1/dej3mecyv/image/upload`, {
-        method: 'POST',
-        body: data
-      });
-      
-      const result = await resp.json();
+  const data = new FormData();
+  data.append('file', file);
+  data.append('upload_preset', 'Upgrade_food');
+  data.append('cloud_name', 'dej3mecyv');
+
+  try {
+    console.log('Iniciando Fetch...'); // Chivato 2
+    
+    // Añadimos un tiempo límite de 15 segundos para que no se quede colgado
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+    const resp = await fetch(`https://api.cloudinary.com/v1_1/dej3mecyv/image/upload`, {
+      method: 'POST',
+      body: data,
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+    console.log('Respuesta recibida:', resp.status); // Chivato 3
+
+    const result = await resp.json();
+    
+    if (result.secure_url) {
       this.imagenUrlSubida = result.secure_url;
+      console.log('URL obtenida:', this.imagenUrlSubida);
       
-      // Actualizamos el campo del formulario con la URL recibida
       this.registroForm.patchValue({ imagen_url: this.imagenUrlSubida });
       
-      Swal.fire({
-        title: 'Imagen subida',
-        icon: 'success',
-        timer: 1000,
-        showConfirmButton: false
-      });
-    } catch (error) {
-      Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+      // Forzamos a Angular a que detecte el cambio de inmediato
+      this.registroForm.get('imagen_url')?.setValue(this.imagenUrlSubida);
+      this.registroForm.updateValueAndValidity();
+
+      Swal.fire({ icon: 'success', title: '¡Imagen lista!', timer: 1000, showConfirmButton: false });
+    } else {
+      throw new Error(result.error?.message || 'Error desconocido');
     }
+
+  } catch (error: any) {
+    Swal.close();
+    console.error('ERROR DETALLADO:', error);
+    let mensaje = 'Error al subir';
+    if (error.name === 'AbortError') mensaje = 'La subida ha tardado demasiado tiempo (Timeout)';
+    Swal.fire('Error', mensaje, 'error');
   }
+}
 
   async onSubmit() {
     if (this.registroForm.invalid) {

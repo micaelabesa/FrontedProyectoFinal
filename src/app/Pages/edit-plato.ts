@@ -118,7 +118,7 @@ export class EditPlato implements OnInit {
       });
       
       // Volvemos a la lista de gestión
-      this.router.navigate(['/admin/platos']);
+      this.router.navigate(['/lista_platos']);
     } catch (error) {
       console.error('Error al actualizar:', error);
       Swal.fire('Error', 'No se pudieron guardar los cambios.', 'error');
