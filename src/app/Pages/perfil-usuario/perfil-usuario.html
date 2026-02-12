@@ -1,48 +1,101 @@
-<div class="perfil-container">
-  
-  <div class="container-sm h-100 d-flex flex-column">
-    
-    <!-- Header -->
-    <div class="text-center mb-4 flex-shrink-0">
-      <h1 class="mb-2">¡Hola, {{ nombreUsuario }} {{ apellidoUsuario }}!</h1>
-      <p class="text-muted">Bienvenido/a a tu panel de control</p>
-    </div>
 
-    <!-- Grid de opciones -->
-    <div class="row g-3 flex-grow-1 align-items-center justify-content-center mb-4">
-      
-      <div class="col-md-4 d-flex">
-        <div class="card-custom w-100" (click)="irAEfectuarReserva()">
-          <div class="card-icon">📅</div>
-          <h5>Efectuar Reserva</h5>
-          <p class="small text-truncate">Realiza una nueva reserva</p>
-          <button class="btn btn-gold w-100">Ir a Reservar</button>
+<!--<p>aca tiene que haber tipo un panel de control de cada usuario que diga hola nombre el npmbre lo sacamos de la base de datos en la tabla usuarios el campo es nombre,  hy otro campo apellido </p>
+<p>tiene que haber cards clicables o botones o lo que sea que diga por ejemplo VER RESERVAS / OTRO EFECTUAR RESERVAS / GESTIONAR RESERVA / ESCRIBIR RESEÑA </p>
+<p>CDA CARD O BOTON TIENE QUE RESPONDER A UN RUTA DEL BACKEND </p>
+<p>LA BASE URL ES ESTA : private base_url = 'https://upgradehubfinalproject-production.up.railway.app'; Y YA ESTA EL SERVICIO USUARIOS CREADOS </p>
+<P>ENTONCES AÑADIREMOS ALLI LAS RUTAS QUE NECESITAMOS QUE SON ESTAS : GET MY RESERVAS /reservas/me </P>
+<h1>hello </h1>  -->
+
+<div class="profile">
+    <h1 class="title">Mi cuenta</h1>
+
+    <!-- Datos usuario -->
+    <section class="card" *ngIf="usuario as u">
+        <h2 class="card-title">Datos del usuario</h2>
+
+        <div class="grid">
+            <div class="row">
+                <span class="label">Nombre</span>
+                <span class="value">{{ u.nombre }} {{ u.apellido }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Email</span>
+                <span class="value">{{ u.email }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Teléfono</span>
+                <span class="value">{{ u.telefono }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">DNI</span>
+                <span class="value">{{ u.dni }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Edad</span>
+                <span class="value">{{ u.edad }}</span>
+            </div>
+
+            <div class="row">
+                <span class="label">Alergias</span>
+                <span class="value">{{ u.alergias || '—' }}</span>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="col-md-4 d-flex">
-        <div class="card-custom w-100" (click)="irAVerReservas()">
-          <div class="card-icon">📋</div>
-          <h5>Ver Mis Reservas</h5>
-          <p class="small text-truncate">Consulta todas tus reservas</p>
-          <button class="btn btn-gold w-100">Ver Reservas</button>
+    <!-- Mis reservas -->
+    <section class="card">
+        <h2 class="card-title">Mis reservas</h2>
+
+        <p class="state" *ngIf="loading">Cargando reservas…</p>
+        <p class="state error" *ngIf="!loading && error">{{ error }}</p>
+
+        <p class="state" *ngIf="!loading && !error && reservas.length === 0">
+            No tienes reservas todavía.
+        </p>
+
+        <div class="res-list" *ngIf="!loading && !error && reservas.length > 0">
+            <article class="res-item" *ngFor="let r of reservas">
+                <div class="res-grid">
+                    <div class="cell">
+                        <span class="label">Fecha</span>
+                        <span class="value">{{ r.fecha }}</span>
+                    </div>
+
+                    <div class="cell">
+                        <span class="label">Hora</span>
+                        <span class="value">{{ r.hora }}</span>
+                    </div>
+
+                    <div class="cell">
+                        <span class="label">Personas</span>
+                        <span class="value">{{ r.party_size }}</span>
+                    </div>
+
+                    <div class="cell">
+                        <span class="label">Estado</span>
+                        <span class="value">{{ estadoLabel(r.estado) }}</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn danger" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada'">
+                        Cancelar
+                    </button>
+
+                    <button class="btn" (click)="resenar(r)" [disabled]="!puedeResenar(r)">
+                        Reseña
+                    </button>
+                </div>
+
+                <p class="review" *ngIf="r.resena">
+                    “{{ r.resena }}”
+                </p>
+            </article>
         </div>
-      </div>
-
-      <div class="col-md-4 d-flex">
-        <div class="card-custom w-100" (click)="irAGestionarReservasModal()">
-          <div class="card-icon">⚙️</div>
-          <h5>Gestionar Reservas</h5>
-          <p class="small text-truncate">Modifica o cancela</p>
-          <button class="btn btn-gold w-100">Gestionar</button>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="text-center pt-3 border-top flex-shrink-0">
-      <button class="btn btn-outline-light" (click)="logout()">Cerrar Sesión</button>
-    </div>
-
-  </div>
+    </section>
 </div>
+

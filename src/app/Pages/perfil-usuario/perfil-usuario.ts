@@ -1,48 +1,101 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { IUsuario } from '../../Interfaces/IUsuario';
+import { IReserva } from '../../Interfaces/IReserva';
+import { ReservaService } from '../../Services/reserva-service';
 
 @Component({
   selector: 'app-perfil-usuario',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './perfil-usuario.html',
-  styleUrl: './perfil-usuario.css',
+  styleUrls: ['./perfil-usuario.css'],
 })
 export class PerfilUsuario implements OnInit {
-  router = inject(Router);
-  
-  nombreUsuario: string = '';
-  apellidoUsuario: string = '';
-  rolUsuario: string = '';
 
-  ngOnInit() {
-    // Obtener datos del usuario desde localStorage
-    this.nombreUsuario = localStorage.getItem('user_name') || 'Usuario';
-    this.apellidoUsuario = localStorage.getItem('user_apellido') || '';
-    this.rolUsuario = localStorage.getItem('user_role') || '';
+  usuario: IUsuario | null = null;
 
-    // Verificar que sea usuario cliente
-    if (this.rolUsuario !== 'cliente') {
-      this.router.navigateByUrl('/');
+  reservas: IReserva[] = [];
+  loading = true;
+  error = '';
+
+  constructor(private reservaService: ReservaService) {}
+
+  async ngOnInit() {
+    this.usuario = this.getUsuarioLocal();
+    await this.cargarReservas();
+  }
+
+  private getUsuarioLocal(): IUsuario | null {
+    try {
+      const raw = localStorage.getItem('user');
+      return raw ? (JSON.parse(raw) as IUsuario) : null;
+    } catch {
+      return null;
     }
   }
 
-  // Métodos de navegación
-  irAEfectuarReserva() {
-    this.router.navigateByUrl('/reserva');
+  async cargarReservas() {
+    this.loading = true;
+    this.error = '';
+
+    try {
+      this.reservas = await this.reservaService.getMisReservas();
+    } catch (e) {
+      this.error = 'No se pudieron cargar tus reservas. ¿Has iniciado sesión?';
+    } finally {
+      this.loading = false;
+    }
   }
 
-  irAVerReservas() {
-    this.router.navigateByUrl('/reservas');
+  estadoLabel(estado?: IReserva['estado']) {
+    if (!estado) return '—';
+    if (estado === 'confirmada') return 'Confirmada';
+    if (estado === 'cancelada') return 'Cancelada';
+    if (estado === 'completada') return 'Completada';
+    return estado;
   }
 
-  irAGestionarReservasModal() {
-    // Esta opción podría abrir un modal o ir a una página
-    this.router.navigateByUrl('/gestionar-reservas');
+  puedeResenar(r: IReserva): boolean {
+    // no reseñamos si está cancelada
+    if (r.estado === 'cancelada') return false;
+
+    // reseña solo si fecha+hora ya pasó
+    const fechaHora = new Date(`${r.fecha}T${r.hora}`);
+    return fechaHora.getTime() < Date.now();
   }
 
-  logout() {
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
+  async cancelar(r: IReserva) {
+    if (!r.id) return;
+
+    const ok = confirm('¿Seguro que quieres cancelar esta reserva?');
+    if (!ok) return;
+
+    try {
+      await this.reservaService.cancelarReserva(r.id);
+      // quita de la lista sin recargar todo
+      this.reservas = this.reservas.filter(x => x.id !== r.id);
+    } catch (e) {
+      alert('No se pudo cancelar la reserva.');
+    }
+  }
+
+  async resenar(r: IReserva) {
+    if (!r.id) return;
+
+    const resena = prompt('Escribe tu reseña:');
+    if (!resena) return;
+
+    try {
+      await this.reservaService.enviarReview({ reserva_id: r.id, resena });
+      alert('¡Gracias por tu reseña! 🍣');
+      // refleja en UI
+      r.resena = resena;
+    } catch (e) {
+      alert('No se pudo enviar la reseña.');
+    }
   }
 }
+

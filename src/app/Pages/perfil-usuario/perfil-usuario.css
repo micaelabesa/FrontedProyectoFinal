@@ -1,152 +1,151 @@
-.perfil-container {
-  display: flex;
-  height: 100%;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  padding: 25px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #e6dcc9;
+
+.profile {
+    min-height: 100vh;
+    background: #0b0b0b;
+    color: #e7e1d4;
+    padding: 40px 20px;
 }
 
-.perfil-container h1 {
-  color: #e6dcc9;
-  font-weight: 700;
-  font-size: 1.8rem;
+.title {
+    text-align: center;
+    margin: 0 0 22px;
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
 }
 
-.perfil-container .text-muted {
-  color: #b8a878 !important;
-  font-size: 0.9rem;
+/* Tarjetas */
+.card {
+    max-width: 920px;
+    margin: 0 auto 16px;
+    background: #111;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
 }
 
-.perfil-container .small {
-  color: #b8a878;
+.card-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    font-weight: 900;
 }
 
-/* Cards personalizadas */
-.card-custom {
-  background: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-  border-radius: 10px;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  position: relative;
+/* Grid datos usuario */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
 }
 
-.card-custom::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-  border-radius: 10px 10px 0 0;
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(231, 225, 212, 0.08);
 }
 
-.card-custom:hover {
-  
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+.row:last-child {
+    border-bottom: none;
 }
 
-.card-custom:hover::before {
-  transform: scaleX(1);
+.label {
+    color: rgba(231, 225, 212, 0.7);
+    font-weight: 800;
 }
 
-.card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.value {
+    font-weight: 900;
 }
 
-.card-custom h5 {
-  color: #e6dcc9;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 1rem;
+/* Estado */
+.state {
+    text-align: center;
+    color: rgba(231, 225, 212, 0.8);
+    margin: 10px 0 0;
 }
 
-.card-custom p {
-  color: #b8a878;
-  margin-bottom: 15px;
-  flex-grow: 1;
+.state.error {
+    color: #ffb4b4;
 }
 
-/* Botones personalizados */
-.btn-gold {
-  background: linear-gradient(135deg, #b8a878 0%, #d4af37 100%);
-  color: #1a1a1a;
-  border: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  padding: 8px 16px;
-  font-size: 0.85rem;
+/* Reservas */
+.res-list {
+    margin-top: 8px;
 }
 
-.btn-gold:hover {
-  transform: scale(1.05);
-  box-shadow: 0 1px rgba(212, 175, 55, 0.4);
-  color: #1a1a1a;
+.res-item {
+    padding: 14px 0;
+    border-top: 1px solid rgba(231, 225, 212, 0.12);
 }
 
-.btn-outline-light {
-  border-color: #b8a878;
-
-  font-weight: 600;
-  transition: all 0.3s ease;
-  padding: 9px 25px;
-  font-size: 0.9rem;
+.res-item:first-child {
+    border-top: none;
 }
 
+.res-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+}
 
-.border-top {
-  border-color: #404040 !important;
+.cell {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* Botones */
+.actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border: 2px solid #e7e1d4;
+    background: #e7e1d4;
+    color: #111;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn.danger {
+    background: transparent;
+    color: #e7e1d4;
+}
+
+.btn.danger:hover {
+    background: rgba(231, 225, 212, 0.08);
+}
+
+/* Reseña */
+.review {
+    margin: 10px 0 0;
+    color: rgba(231, 225, 212, 0.85);
+    font-style: italic;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .perfil-container {
-    padding: 20px 15px;
-  }
+@media (max-width: 700px) {
 
-  .perfil-container h1 {
-    font-size: 1.4rem;
-  }
-
-  .card-custom {
-    padding: 15px;
-  }
-
-  .card-icon {
-    font-size: 2rem;
-  }
-
-  .card-custom h5 {
-    font-size: 0.95rem;
-  }
-
-  .card-custom p {
-    font-size: 0.8rem;
-    margin-bottom: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .perfil-container h1 {
-    font-size: 1.2rem;
-  }
-
-  .card-custom {
-    padding: 12px;
-  }
-
-  .card-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-  }
+    .grid,
+    .res-grid {
+        grid-template-columns: 1fr;
+    }
 }

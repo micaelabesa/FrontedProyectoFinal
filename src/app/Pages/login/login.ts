@@ -42,6 +42,7 @@ async onSubmit() {
     if (token && userData) {
       // 2. GUARDAMOS EN LOCALSTORAGE
       localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userData));
       localStorage.setItem('user_role', userData.rol);
       localStorage.setItem('user_name', userData.nombre);
       localStorage.setItem('user_apellido', userData.apellido);

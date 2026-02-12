@@ -150,6 +150,11 @@
     line-height: 1.6;
     opacity: 0.92;
 }
+/*MAPA*/
+.mapa{
+    width: 400px;
+    height: 200px;
+}
 
 /* responsive */
 @media (min-width: 900px) {
