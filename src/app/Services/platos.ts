@@ -36,7 +36,11 @@ editarPlato(id: number, plato: IPlato) {
       this.HttpClient.post<platoResponse>(`${this.base_url}/platos/`, plato)
     )
 
+  }
 
-
+  getPlatoById(id: number) {
+    return firstValueFrom(
+      this.HttpClient.get<IPlato>(`${this.base_url}/platos/${id}`)
+    )
   }
 }

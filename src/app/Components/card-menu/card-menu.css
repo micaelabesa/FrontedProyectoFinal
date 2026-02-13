@@ -1,0 +1,37 @@
+/* Contenedor de la imagen para ocultar el desbordamiento durante el zoom */
+.card-img-top-container {
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img-top {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+ 
+}
+
+
+.card:hover .card-img-top {
+    transform: scale(1.15);
+
+}
+
+
+.card:hover .card-img-top {
+    filter: brightness(0.9);
+}
+
+
+.card.h-100 {
+    transition: all 0.3s ease;
+    border: 1px solid transparent !important;
+}
+
+.card.h-100:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(255, 193, 7, 0.3) !important;
+
+}

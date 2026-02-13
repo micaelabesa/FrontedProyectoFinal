@@ -18,6 +18,17 @@ export class Resenas {
     )
   
   }
-
-
+ 
+  createResena(resena: IResena) {
+    return firstValueFrom(
+      this.http.post<IResena>(`${this.base_url}/resenas/`, resena)
+    )
+  }
+  updateResena(id: number, resena: IResena) {
+    return firstValueFrom(
+      this.http.put<{ msg: string }>(`${this.base_url}/resenas/${id}`, resena)
+    );
+  }
 }
+
+

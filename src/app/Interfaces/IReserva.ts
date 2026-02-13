@@ -31,4 +31,8 @@ export interface IReserva {
     party_size: number;   // Cantidad de personas
     estado?: 'confirmada' | 'cancelada' | 'completada';
     resena?: string;      // Observaciones
+
+    resena_id?: number;          // ID de la reseña (tabla resenas)
+    comentario_resena?: string;  // El comentario de la reseña
+    puntuacion?: number;         // La nota de la reseña
 }

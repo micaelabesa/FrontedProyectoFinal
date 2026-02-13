@@ -1,75 +1,7 @@
-<!-- Mis reservas -->
+
+
+
 <!-- <section class="card">
-    <div class="text-start">
-        <button class="btn btn-outline-warning mb-4" routerLink="/perfil-usuario">
-            <i class="bi bi-arrow-left me-2"></i> Volver a mi Perfil
-        </button>
-    </div>
-   
-    <h1 class="card-title">Mis reservas</h1>
-
-    @if (loading()) {
-    <p class="state">Cargando reservas…</p>
-    }
-    @if (!loading() && error()) {
-    <p class="state error">{{ error() }}</p>
-    }
-
-    @if (!loading() && !error() && reservas().length === 0) {
-    <p class="state">
-        No tienes reservas todavía.
-    </p>
-    }
-
-    @if (!loading() && !error() && reservas().length > 0) {
-    <div class="res-list">
-        @for (r of reservas(); track r.id) {
-        <article class="res-item">
-            <div class="res-grid">
-                <div class="cell">
-                    <span class="label">Fecha</span>
-                    <span class="value">{{ r.fecha }}</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Hora</span>
-                    <span class="value">{{ r.hora }}</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Personas</span>
-                    <span class="value">{{ r.party_size }}</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Estado</span>
-                    <span class="value">{{ estadoLabel(r.estado) }}</span>
-                </div>
-            </div>
-
-            <div class="actions">
-                <button class="btn btn-outline-like" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada'">
-                    Cancelar
-                </button>
-
-                <button class="btn btn-gold-like" (click)="resenar(r)" [disabled]="!puedeResenar(r)">
-                    Reseña
-                </button>
-            </div>
-
-            @if (r.resena) {
-            <p class="review">
-                "{{ r.resena }}"
-            </p>
-            }
-        </article>
-        }
-    </div>
-    }
-</section> -->
-
-
-<section class="card">
     <div class="header-actions">
         <button class="btn-nav" routerLink="/perfil-usuario">
             <i class="bi bi-arrow-left me-2"></i> Volver al Perfil
@@ -142,5 +74,62 @@
         </article>
         }
     </div>
+    }
+</section> -->
+<section class="card">
+    <div class="header-actions">
+        <button class="btn-nav" routerLink="/perfil-usuario">
+            <i class="bi bi-arrow-left me-2"></i> Volver al Perfil
+        </button>
+    </div>
+
+    <h1 class="card-title">Mis <span style="color: #e6dcc9;">Reservas</span></h1>
+
+    @if (loading()) {
+    <p class="state">Cargando tus reservas…</p>
+    }
+
+    @if (!loading() && reservas().length > 0) {
+    <div class="res-list">
+        @for (r of reservas(); track r.id) {
+        <article class="res-item">
+            <div class="res-grid">
+                <div class="cell"><span class="label">Fecha</span><span class="value">{{ r.fecha }}</span></div>
+                <div class="cell"><span class="label">Hora</span><span class="value">{{ formatearHora(r.hora) }}</span>
+                </div>
+                <div class="cell"><span class="label">Estado</span>
+                    <span class="value" [style.color]="r.estado === 'confirmada' ? '#96ffbe' : '#ffb4b4'">
+                        {{ estadoLabel(r.estado) }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-outline" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada'">
+                    Cancelar Reserva
+                </button>
+
+                <button class="btn-gold" (click)="manejarResena(r)">
+                    {{ r.resena_id ? 'Editar mi opinión' : 'Escribir Reseña' }}
+                </button>
+            </div>
+
+            @if (r.comentario_resena) {
+            <div class="review-box"
+                style="margin-top: 15px; padding: 15px; background: rgba(230, 220, 201, 0.05); border-radius: 8px; border-left: 3px solid #d4af37;">
+                <div class="d-flex justify-content-between mb-2">
+                    <span style="color: #d4af37; font-size: 0.9rem;">Tu valoración:</span>
+                    <span>{{ '⭐'.repeat(r.puntuacion || 0) }}</span>
+                </div>
+                <p class="mb-0" style="color: #ccc; font-style: italic;">
+                    <i class="bi bi-quote me-2"></i>{{ r.comentario_resena }}
+                </p>
+            </div>
+            }
+        </article>
+        }
+    </div>
+    } @else if (!loading()) {
+    <div class="state">Aún no tienes ninguna reserva.</div>
     }
 </section>
