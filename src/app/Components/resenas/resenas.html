@@ -1,5 +1,10 @@
-<div class="container">
-    <h2>{{ isAdmin ? 'Gestión de Reseñas (Admin)' : 'Mis Reseñas' }}</h2>
+<div class="container mt-4">
+    <button class="btn btn-outline-warning mb-4" (click)="volver()">
+        <i class="bi bi-arrow-left me-2"></i>
+        {{ isAdmin ? 'Volver al Panel Admin' : 'Volver a mi Perfil' }}
+    </button>
+
+    <h2 class="mb-4">{{ isAdmin ? 'Gestión de Reseñas (Admin)' : 'Mis Reseñas' }}</h2>
 
     @if (isAdmin) {
     <div class="lista-resenas">
@@ -10,10 +15,15 @@
             <small>Escrita por: {{ resena.nombre }}</small>
         </div>
         } @empty {
-        <p>No hay reseñas para mostrar todavía.</p>
+        <div class="empty-msg">
+            <p>No hay reseñas para mostrar todavía.</p>
+        </div>
         }
     </div>
     } @else {
-    <p>Próximamente: Aquí podrás gestionar tus reseñas.</p>
+    <div class="alert alert-info bg-dark text-warning border-warning">
+        <i class="bi bi-info-circle me-2"></i>
+        Próximamente: Aquí podrás gestionar tus propias reseñas.
+    </div>
     }
 </div>

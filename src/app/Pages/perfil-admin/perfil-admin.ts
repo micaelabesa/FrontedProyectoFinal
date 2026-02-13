@@ -24,11 +24,11 @@ export class PerfilAdmin {
   }
 
   irAGestionarPlatos() {
-  this.router.navigate(['lista_platos']); //##TODO: HACER RUTAS PARA GESTIONAR MESAS
+  this.router.navigate(['lista_platos']); 
 }
 
 irAGestionarMesas() {
-  this.router.navigate(['/admin/gestion-mesas']);//##TODO: HACER RUTAS PARA GESTIONAR MESAS
+  this.router.navigate(['admin/gestion-mesas']);
 }
   logout() {
     localStorage.removeItem('token'); // O tu lógica de logout

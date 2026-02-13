@@ -1,0 +1,26 @@
+/* Forzar colores oscuros en el calendario */
+:host ::ng-deep .fc {
+    --fc-border-color: #444;
+    --fc-button-bg-color: #ffc107;
+    --fc-button-border-color: #ffc107;
+    --fc-button-text-color: #000;
+    --fc-page-bg-color: #1a1a1a;
+    color: white;
+}
+
+:host ::ng-deep .fc-theme-standard td,
+:host ::ng-deep .fc-theme-standard th {
+    background-color: #1a1a1a;
+}
+
+:host ::ng-deep .fc .fc-daygrid-day-number {
+    color: #ffc107;
+    padding: 8px;
+    text-decoration: none;
+}
+
+:host ::ng-deep .fc-col-header-cell-cushion {
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}

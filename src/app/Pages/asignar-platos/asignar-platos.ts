@@ -82,10 +82,16 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
         Swal.fire('Aviso', 'Selecciona al menos un plato antes de guardar', 'info');
         return;
     }
-
+// Mostramos un cargando para que el usuario no toque nada
+  Swal.showLoading();
     try {
       // Enviamos cada vínculo a la tabla intermedia
       for (const vinculo of this.platosParaAsignar) {
+      //   const payload = {
+      //   menu_id: Number(this.menuId),
+      //   plato_id: Number(vinculo.plato_id),
+      //   rol: vinculo.rol
+      // };
         await this.menuService.vincularPlato(vinculo); 
       }
 

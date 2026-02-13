@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Resenas as ResenasService } from '../../Services/resenas'; 
 import { IResena } from '../../Interfaces/Iresena';
 import { DatePipe, NgClass } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resenas',
@@ -18,6 +19,7 @@ export class ResenasComponent implements OnInit {
   listaResenas: IResena[] = [];
   isAdmin: boolean = false;
   userId: number | null = null;
+   router = inject(Router);
 
   async ngOnInit() {
     // LEEMOS COMO GUARDA EL LOGIN:
@@ -43,6 +45,14 @@ export class ResenasComponent implements OnInit {
       this.cdr.markForCheck(); // Forzamos la actualización de la vista
     } catch (error) {
       console.error('Error al traer reseñas:', error);
+    }
+  }
+
+    volver() {
+    if (this.isAdmin) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/perfil-usuario']);
     }
   }
 }

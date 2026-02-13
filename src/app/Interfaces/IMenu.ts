@@ -1,6 +1,6 @@
 export interface IMenu {
   id: number;
-  numero: number;
+  numero?: number;
   titulo: string; 
   descripcion: string;
   fecha: string;

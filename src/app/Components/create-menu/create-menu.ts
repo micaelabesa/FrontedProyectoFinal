@@ -34,6 +34,7 @@ export class CreateMenu {
       // 1. Preparamos los datos (convertimos el boolean a 1 o 0 para el Back)
       const datosParaEnviar = {
         ...this.form.value,
+        // numero: 0,
         activo: this.form.value.activo ? 1 : 0
       };
 
@@ -63,7 +64,7 @@ export class CreateMenu {
       } 
       else if (result.isDenied) {
         // Opción: Quedarse aquí para añadir otro. Limpiamos el form.
-        this.form.reset({ activo: true, numero: 0, precio: 0 });
+        this.form.reset({ activo: true, numero: 0,precio: 0 });
       } 
       else {
         // Opción: Ir al Dashboard (botón cancelar o cerrar)

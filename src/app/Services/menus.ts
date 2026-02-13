@@ -50,4 +50,12 @@ export class Menus {
       this.HttpClient.put<{ "msg": string }>(`${this.base_url}/menus-semanales/${id}`, menu)
     )
   }
+
+  desvincularPlato(menuId: number, platoId: number) {
+  return firstValueFrom(
+    this.HttpClient.delete<{ "msg": string }>(
+      `${this.base_url}/menus-semanales/desvincular-plato/${menuId}/${platoId}`
+    )
+  );
+}
 }
