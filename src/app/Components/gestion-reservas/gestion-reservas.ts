@@ -2,11 +2,12 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ReservaService } from '../../Services/reserva-service'; 
 import { IReserva } from '../../Interfaces/IReserva';
 import { DatePipe, NgClass } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-reservas', // Tu selector
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './gestion-reservas.html',
   styleUrl: './gestion-reservas.css',
 })

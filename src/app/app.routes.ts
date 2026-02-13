@@ -18,27 +18,39 @@ import { GestionReservas } from './Components/gestion-reservas/gestion-reservas'
 import { CreatePlato } from './Pages/create-platos/create-platos';
 import { EditPlato } from './Pages/edit-plato';
 import { EditMenu } from './Pages/edit-menu/edit-menu';
+import { GestionMesas } from './Pages/gestion-mesas/gestion-mesas';
+import { CalendarioMenus } from './Pages/calendario-menus/calendario_reservas.';
 
 
 export const routes: Routes = [
+// --- RUTAS PÚBLICAS (Sin Guard) ---
+// --- PÚBLICAS (Sin cambios) ---
     { path: '', component: Home },
     { path: 'landing', component: Home },
     { path: 'menus', component: Menu },
     { path: 'login', component: Login },
     { path: 'registro', component: Registro },
     { path: 'lista_platos', component: ListaPlatos },
-    { path: 'admin', component: PerfilAdmin, canActivate: [authGuard]},
-    { path: 'admin-dashnoard', component: AdminDashboard },
-    { path: 'perfil-usuario', component: PerfilUsuario, canActivate: [authGuard] },
     { path: 'menus/:id', component: Menu },
-    { path: 'reserva', component: Reserva, canActivate: [authGuard] },
-    { path: 'admin/reservas', component: GestionReservas },
-    { path: 'admin/create-menu', component: CreateMenu },
-    { path: 'admin/asignar-platos/:id', component: AsignarPlatos },
     { path: 'resenas', component: ResenasComponent },
-    { path: 'admin/create-plato', component: CreatePlato },
-    { path: 'admin/edit-plato/:id', component: EditPlato },
-    { path: 'admin/edit-menu/:id',component: EditMenu },
+
+    // --- PROTEGIDAS (Con tus nombres exactos) ---
+    { path: 'perfil-usuario', component: PerfilUsuario, canActivate: [authGuard] },
+    { path: 'reserva', component: Reserva, canActivate: [authGuard] },
+    
+    // Rutas de Admin
+    { path: 'admin', component: PerfilAdmin, canActivate: [authGuard] },
+    { path: 'admin-dashnoard', component: AdminDashboard, canActivate: [authGuard] }, // 
+    { path: 'admin/reservas', component: GestionReservas, canActivate: [authGuard] },
+    { path: 'calendario', component: CalendarioMenus, canActivate: [authGuard] },
+    { path: 'admin/create-menu', component: CreateMenu, canActivate: [authGuard] },
+    { path: 'admin/asignar-platos/:id', component: AsignarPlatos, canActivate: [authGuard] },
+    { path: 'admin/create-plato', component: CreatePlato, canActivate: [authGuard] },
+    { path: 'admin/edit-plato/:id', component: EditPlato, canActivate: [authGuard] },
+    { path: 'admin/edit-menu/:id', component: EditMenu, canActivate: [authGuard] },
+    { path: 'admin/gestion-mesas', component: GestionMesas, canActivate: [authGuard] },
+
+    // --- RUTA 404 ---
     { path: '**', component: NotFound }
 
     
