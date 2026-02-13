@@ -20,6 +20,7 @@ export class Reserva implements OnInit {
   success: boolean = false;
   // Variables de estado
   mesas: IMesa[] = [];
+  mesasDisponibles: IMesa[] = [];
   loading = false;
   minDate = new Date().toISOString().split('T')[0];
   
@@ -38,7 +39,7 @@ export class Reserva implements OnInit {
     resena: new FormControl('') // Usamos la columna resena como observaciones
   });
 
-  // Al iniciar, traemos las mesas para que aparezcan en el selector
+  // Al iniciar, traemos todas las mesas (sin mostrar)
   async ngOnInit() {
     try {
       this.mesas = await this.reservaService.getMesas();
@@ -46,6 +47,31 @@ export class Reserva implements OnInit {
       console.error('Error al cargar las mesas:', error);
       Swal.fire('Error', 'No se pudieron cargar las mesas disponibles', 'error');
     }
+  }
+
+  // Verifica si se pueden mostrar mesas y horas
+  canShowMesasYHoras(): boolean {
+    const fecha = this.reservaForm.get('fecha')?.value;
+    const personas = this.reservaForm.get('party_size')?.value;
+    return !!(fecha && personas && personas > 0);
+  }
+
+  // Se ejecuta cuando cambia fecha o cantidad de personas
+  onFechaOrPersonasChange() {
+    if (this.canShowMesasYHoras()) {
+      this.filtrarMesasDisponibles();
+      // Resetear mesa y hora seleccionadas
+      this.reservaForm.get('mesa_id')?.setValue('');
+      this.reservaForm.get('hora')?.setValue('');
+    } else {
+      this.mesasDisponibles = [];
+    }
+  }
+
+  // Filtra las mesas según la capacidad de personas
+  private filtrarMesasDisponibles() {
+    const personas = this.reservaForm.get('party_size')?.value;
+    this.mesasDisponibles = this.mesas.filter(mesa => mesa.capacidad >= personas);
   }
 
   // Helper para mostrar errores en el HTML
@@ -83,7 +109,7 @@ export class Reserva implements OnInit {
       });
 
       // Redirigimos a la home o a "mis reservas"
-      this.router.navigateByUrl('/landing');
+      this.router.navigateByUrl('/perfil-usuario');
 
     } catch (error: any) {
       console.error('Error en la reserva:', error);
@@ -109,5 +135,6 @@ export class Reserva implements OnInit {
       mesa_id: '',
       resena: ''
     });
+    this.mesasDisponibles = [];
   }
 }

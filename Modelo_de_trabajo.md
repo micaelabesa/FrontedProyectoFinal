@@ -149,9 +149,9 @@ ng generate guard guards/Auth --skip-tests y les ponemos los guards a las rutas 
 
 ### DELETE MENU == LOGUEADO COMO ADMIN❌
 
-### RESERVAS LOGUEADO COMO CLIENTE❌
+### RESERVAS LOGUEADO COMO CLIENTE✅
 
-### LOGIN -OK ❌
+### LOGIN -OK ✅
 
 Realice varios cambios a todos los <a href="#"> que me fui encontrando, más que nada para usar los routerLink!. En angular nos han dicho que no los usemos así, sustituirlos por button. En todo el nav-bar por ejemplo.
 Preguntar si es correcto usarlo al menos para redes sociales ?

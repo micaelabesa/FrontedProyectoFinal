@@ -56,9 +56,29 @@ export class MisReservas implements OnInit {
     return labels[estado || ''] || estado || '—';
   }
 
+  // para que sea más legible, formateamos la hora si viene en segundos desde medianoche.
+  formatearHora(hora: string | number): string {
+    if (typeof hora === 'string') return hora;
+    
+    const segundos = Number(hora);
+    const horas = Math.floor(segundos / 3600);
+    const minutos = Math.floor((segundos % 3600) / 60);
+    
+    return `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}`;
+  }
+
   puedeResenar(r: IReserva): boolean {
     if (r.estado === 'cancelada') return false;
-    const fechaHora = new Date(`${r.fecha}T${r.hora}`);
+    
+    // Crear fecha en zona horaria local
+    const [año, mes, día] = r.fecha.split('-').map(Number);
+    const fechaHora = new Date(año, mes - 1, día);
+    
+    // Sumarle los segundos
+    const segundos = typeof r.hora === 'number' ? r.hora : 0;
+    fechaHora.setSeconds(fechaHora.getSeconds() + segundos);
+    
+    // Comparar con ahora
     return fechaHora.getTime() < Date.now();
   }
 

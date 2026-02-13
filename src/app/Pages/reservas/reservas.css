@@ -7,10 +7,18 @@
 
 /* Hero */
 .hero {
+    display: flex;
+    flex-direction: column;
     background: radial-gradient(1200px 500px at 50% -10%, rgba(230, 220, 201, 0.18), transparent 55%),
         linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 65%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 48px 0 28px;
+    padding: 20px 0 28px;
+}
+
+.hero__top {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+    padding: 0 0 20px;
 }
 
 .hero__content {
@@ -208,6 +216,33 @@ textarea:focus {
 }
 
 /* Buttons */
+.btn-nav {
+    background: transparent;
+    border: 1px solid rgba(230, 220, 201, 0.6);
+    color: rgba(230, 220, 201, 0.9);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+}
+
+.btn-nav:hover {
+    background: rgba(230, 220, 201, 0.1);
+    border-color: rgba(230, 220, 201, 0.9);
+    color: #e6dcc9;
+}
+
+.btn-nav:active {
+    transform: translateY(1px);
+}
+
 .actions {
     display: flex;
     justify-content: flex-end;

@@ -27,7 +27,7 @@ export interface IReserva {
     usuario_id?: number;  // Lo saca el backend del token
     mesa_id: number;      // Obligatorio
     fecha: string;        // Formato YYYY-MM-DD
-    hora: string;         // Formato HH:mm
+    hora: string | number;  // Formato HH:mm o segundos desde medianoche
     party_size: number;   // Cantidad de personas
     estado?: 'confirmada' | 'cancelada' | 'completada';
     resena?: string;      // Observaciones
