@@ -75,7 +75,7 @@ export class CreateMenu {
       console.error('Error al guardar el menú:', error);
       Swal.fire({
         title: 'Error',
-        text: 'No se pudo guardar el menú. Revisa tu conexión.',
+        text: 'No se pudo guardar el menú. Nº de menu duplicado.',
         icon: 'error',
         confirmButtonColor: '#ffc107'
       });
