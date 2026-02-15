@@ -1,4 +1,4 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, inject, output, OnInit } from '@angular/core';
 import { Menus } from '../../Services/menus';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -7,79 +7,84 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-create-menu',
   standalone: true,
-  imports: [ReactiveFormsModule], 
+  imports: [ReactiveFormsModule],
   templateUrl: './create-menu.html',
   styleUrl: './create-menu.css',
 })
-export class CreateMenu {
+export class CreateMenu implements OnInit {
   menuService = inject(Menus);
   router = inject(Router);
-
-  // Variable de tipo output para avisar al dashboard que recargue la lista
-  menuCreado = output(); 
+  menuCreado = output();
 
   form = new FormGroup({
-    numero: new FormControl(0, [Validators.required]),
+    numero: new FormControl<number>(0, [Validators.required]),
     titulo: new FormControl('', [Validators.required]),
     descripcion: new FormControl('', [Validators.required]),
-    precio: new FormControl(0, [Validators.required]),
+    precio: new FormControl<number>(0, [Validators.required]),
     fecha: new FormControl('', [Validators.required]),
     activo: new FormControl(true),
-    foto_url: new FormControl('')
+    foto_url: new FormControl(''),
   });
 
-  async onSubmit() {
-  if (this.form.valid) {
+  async ngOnInit() {
+    await this.autocompletarNumero();
+  }
+
+  private async autocompletarNumero() {
     try {
-      // 1. Preparamos los datos (convertimos el boolean a 1 o 0 para el Back)
+      const menus: any[] = await this.menuService.getAll(); // <- NECESITAS ESTE MÉTODO EN EL SERVICE
+      const maxNumero = menus.reduce((max, m) => Math.max(max, Number(m.numero) || 0), 0);
+      this.form.patchValue({ numero: maxNumero + 1 });
+    } catch (e) {
+      // si falla, no rompemos nada: queda 0 y el usuario podría ponerlo manual
+      console.warn('No se pudo autocompletar el número de menú:', e);
+    }
+  }
+
+  async onSubmit() {
+    if (!this.form.valid) return;
+
+    try {
       const datosParaEnviar = {
         ...this.form.value,
-        // numero: 0,
-        activo: this.form.value.activo ? 1 : 0
+        activo: this.form.value.activo ? 1 : 0,
       };
 
-      // 2. Llamada al servicio
       const response = await this.menuService.createMenu(datosParaEnviar as any);
-      console.log('Menú creado con éxito:', response);
 
-      // 3. Lanzamos el Swal con los 3 botones
       const result = await Swal.fire({
         title: '¡Menú Creado!',
         text: '¿Qué quieres hacer ahora?',
         icon: 'success',
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: 'Asignar Platos',   // Botón Amarillo (Principal)
-        denyButtonText: 'Añadir otro menú',    // Botón Oscuro
-        cancelButtonText: 'Ir al Dashboard',   // Botón Gris
+        confirmButtonText: 'Asignar Platos',
+        denyButtonText: 'Añadir otro menú',
+        cancelButtonText: 'Ir al Dashboard',
         confirmButtonColor: '#ffc107',
         denyButtonColor: '#242424',
         cancelButtonColor: '#6c757d',
       });
 
-      // 4. Lógica de navegación según la elección
       if (result.isConfirmed) {
-        // Opción: Asignar Platos. Pasamos el ID del menú recién creado
         this.router.navigate(['/admin/asignar-platos', response.id]);
-      } 
-      else if (result.isDenied) {
-        // Opción: Quedarse aquí para añadir otro. Limpiamos el form.
-        this.form.reset({ activo: true, numero: 0,precio: 0 });
-      } 
-      else {
-        // Opción: Ir al Dashboard (botón cancelar o cerrar)
+      } else if (result.isDenied) {
+        this.form.reset({ activo: true, numero: 0, precio: 0 });
+        await this.autocompletarNumero(); // ✅ vuelve a poner el siguiente número
+      } else {
         this.router.navigate(['/admin']);
       }
 
-    } catch (error) {
-      console.error('Error al guardar el menú:', error);
+    } catch (error: any) {
       Swal.fire({
         title: 'Error',
-        text: 'No se pudo guardar el menú. Nº de menu duplicado.',
+        text: error?.error?.detail || 'No se pudo guardar el menú. Nº de menú duplicado.',
         icon: 'error',
-        confirmButtonColor: '#ffc107'
+        confirmButtonColor: '#ffc107',
       });
+
+      // ✅ si fue duplicado, recalculamos y lo intentas otra vez
+      await this.autocompletarNumero();
     }
   }
-}
 }

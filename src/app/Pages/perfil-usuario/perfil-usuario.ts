@@ -47,5 +47,9 @@ router = inject(Router);
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }
+
+  irAMisDatos() {
+  this.router.navigateByUrl('/mis-datos');
+}
  }
 

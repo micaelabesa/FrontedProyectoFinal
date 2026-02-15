@@ -106,7 +106,7 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
 
     } catch (error) {
       console.error('Error al vincular:', error);
-      Swal.fire('Error', 'No se pudieron guardar los platos. Revisa la consola.', 'error');
+      Swal.fire('Error', 'No se pudieron guardar los platos. solo puede haber 3 platos en el menu.', 'error');
     }
   }
 

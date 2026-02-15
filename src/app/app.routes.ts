@@ -21,6 +21,7 @@ import { EditMenu } from './Pages/edit-menu/edit-menu';
 import { Reserva } from './Pages/reservas/reservas';
 import { GestionMesas } from './Pages/gestion-mesas/gestion-mesas';
 import { CalendarioMenus } from './Pages/calendario-menus/calendario_reservas.';
+import { MisDatos } from './Pages/mis-datos/mis-datos';
 
 
 export const routes: Routes = [
@@ -35,9 +36,10 @@ export const routes: Routes = [
     { path: 'menus/:id', component: Menu },
     { path: 'resenas', component: ResenasComponent },
 
-    // --- PROTEGIDAS (Con tus nombres exactos) ---
+    // --- PROTEGIDAS ---
     { path: 'perfil-usuario', component: PerfilUsuario, canActivate: [authGuard] },
-     { path: 'reserva', component: Reserva, canActivate: [authGuard] },
+    { path: 'reserva', component: Reserva, canActivate: [authGuard] },
+     { path: 'mis-datos', component: MisDatos, canActivate: [authGuard] },
     
     // Rutas de Admin
     { path: 'admin', component: PerfilAdmin, canActivate: [authGuard] },

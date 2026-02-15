@@ -2,7 +2,7 @@
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ILogin, IUsuario , LoginResponse, RegisterResponse } from '../Interfaces/IUsuario';
+import { ILogin, IUsuario , IUsuarioOut, IUsuarioUpdatePayload, LoginResponse, PasswordUpdatePayload, PasswordUpdateResponse, RegisterResponse, UsuarioUpdateResponse } from '../Interfaces/IUsuario';
 
 
 @Injectable({
@@ -30,11 +30,25 @@ export class Usuarios {
 
   isLogged() {
     const token = localStorage.getItem('token');
-    if(!token)return false;
+    if (!token) return false;
     return true;
   
   }
 
-//get all reservas //cancel reserva  / escribir reseña /
+  getUserById(id: number) {
+    return firstValueFrom
+      (this.http.get<IUsuarioOut>(`${this.base_url}/usuarios/${id}`));
+  }
 
+  updateUser(id: number, payload: IUsuarioUpdatePayload) {
+    return firstValueFrom(
+      this.http.put<UsuarioUpdateResponse>(`${this.base_url}/usuarios/${id}`, payload)
+    );
+  }
+  changePassword(id: number, payload: PasswordUpdatePayload) {
+  return firstValueFrom(
+    this.http.put<PasswordUpdateResponse>(`${this.base_url}/usuarios/${id}/password`, payload)
+  );
+  }
+  
 }
