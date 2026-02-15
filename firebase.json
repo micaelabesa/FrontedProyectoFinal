@@ -1,16 +1,13 @@
 {
   "hosting": {
-    "public": "dist/FrontedProyectoFinal",
+    "public": "dist/FrontedProyectoFinal/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
+      { "source": "**", "destination": "/index.html" }
     ]
   }
 }
