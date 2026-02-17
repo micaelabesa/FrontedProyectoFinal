@@ -26,7 +26,7 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
   menuId!: number;
   listaPlatosDB: IPlato[] = []; 
   platosParaAsignar: IVinculoPlato[] = []; 
-  returnUrl = '/admin';
+  returnUrl = '/admin-dashnoard';
 
   // --- PASO 1: CARGAR LOS DATOS AL ENTRAR ---
   async ngOnInit() {
@@ -34,6 +34,9 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
     const idParam = this.route.snapshot.paramMap.get('id');
     this.menuId = Number(idParam);
     console.log('ID del menú capturado:', this.menuId);
+
+    const returnUrlParam = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (returnUrlParam) this.returnUrl = returnUrlParam;
 
     try {
       // Cargamos todos los platos disponibles de la DB
