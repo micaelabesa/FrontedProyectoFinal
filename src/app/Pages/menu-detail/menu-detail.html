@@ -1,0 +1,7 @@
+@if (menuSeleccionado()) {
+<button class="btn btn-outline-warning mb-4" (click)="menuSeleccionado.set(null)">
+    <i class="bi bi-arrow-left me-2"></i> Volver a todos los menús
+</button>
+
+<app-card-menu [datos]="menuSeleccionado()!" (onVerPlato)="verEspecificaciones($event)" />
+}
