@@ -1,3 +1,9 @@
+<div class="container">
+<button routerLink="/" class="btn btn-outline-light btn-sm">
+    <i class="bi bi-house-door me-2"></i> Volver al Inicio
+</button>
+</div>
+
 @if (!isAdmin) {
 <div class="page-wrap">
     <div class="carousel-box">
@@ -50,7 +56,7 @@
                     <i class="bi bi-arrow-left me-2"></i> Volver al Panel Admin
                 </button>
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="text-white">Gestión de Menú</h2>
+                    <h2 class="text-white">Gestión de Platos</h2>
                     <button class="btn btn-warning fw-bold" (click)="irACrearPlato()">
                         <i class="bi bi-plus-circle"></i> Nuevo Plato
                     </button>

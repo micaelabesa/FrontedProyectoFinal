@@ -26,6 +26,7 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
   menuId!: number;
   listaPlatosDB: IPlato[] = []; 
   platosParaAsignar: IVinculoPlato[] = []; 
+  returnUrl = '/admin';
 
   // --- PASO 1: CARGAR LOS DATOS AL ENTRAR ---
   async ngOnInit() {
@@ -87,11 +88,6 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
     try {
       // Enviamos cada vínculo a la tabla intermedia
       for (const vinculo of this.platosParaAsignar) {
-      //   const payload = {
-      //   menu_id: Number(this.menuId),
-      //   plato_id: Number(vinculo.plato_id),
-      //   rol: vinculo.rol
-      // };
         await this.menuService.vincularPlato(vinculo); 
       }
 
@@ -102,12 +98,17 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
         confirmButtonColor: '#ffc107'
       });
 
-      this.router.navigate(['/admin']); 
+      // this.router.navigate(['/admin']); 
+       this.router.navigateByUrl(this.returnUrl);
 
     } catch (error) {
       console.error('Error al vincular:', error);
       Swal.fire('Error', 'No se pudieron guardar los platos. solo puede haber 3 platos en el menu.', 'error');
     }
   }
+
+ cancelar() {
+  this.router.navigateByUrl(this.returnUrl);
+}
 
 }

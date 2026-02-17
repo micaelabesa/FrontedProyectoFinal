@@ -1,4 +1,5 @@
-/* Contenedor de la imagen para ocultar el desbordamiento durante el zoom */
+/* ---------- CONTENEDOR IMAGEN ---------- */
+
 .card-img-top-container {
     height: 160px;
     overflow: hidden;
@@ -9,29 +10,39 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
- 
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        filter 0.4s ease;
 }
 
-
+/* Zoom + oscurecer imagen en hover */
 .card:hover .card-img-top {
     transform: scale(1.15);
-
-}
-
-
-.card:hover .card-img-top {
     filter: brightness(0.9);
 }
 
 
+/* ---------- CARD BASE ---------- */
+
 .card.h-100 {
-    transition: all 0.3s ease;
-    border: 1px solid transparent !important;
+    background-color: #1a1a1a;
+    /* MUY importante para que el neon contraste */
+    border: none;
+    /* quitamos borde bootstrap */
+    border-radius: 16px;
+    overflow: visible;
+    /* permite que el halo salga */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card.h-100:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4) !important;
-    border-color: rgba(255, 193, 7, 0.3) !important;
 
+/* ---------- HOVER NEÓN DIFUMINADO ---------- */
+
+.card.h-100:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 0 14px rgba(255, 210, 120, 0.45),
+        0 0 30px rgba(255, 210, 120, 0.25),
+        0 0 60px rgba(255, 210, 120, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.6);
 }

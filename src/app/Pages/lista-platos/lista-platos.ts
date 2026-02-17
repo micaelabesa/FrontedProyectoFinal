@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { IPlato } from '../../Interfaces/IPlatos';
 import { Platos } from '../../Services/platos';
-import { Router } from '@angular/router'; // Importante para navegar
+import { Router, RouterLink } from '@angular/router'; // Importante para navegar
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-platos',
   standalone: true, // Asegúrate de tener esto si usas Angular 17+
-  imports: [], // Aquí puedes añadir CommonModule si usas pipes antiguos, pero con @if no hace falta
+  imports: [RouterLink], // Aquí puedes añadir CommonModule si usas pipes antiguos, pero con @if no hace falta
   templateUrl: './lista-platos.html',
   styleUrl: './lista-platos.css',
 })

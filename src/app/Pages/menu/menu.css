@@ -1,28 +1,64 @@
-/* Espaciado entre tarjetas si el row g-4 no fuera suficiente */
-.card {
+/* Fondo general */
+.menus-section {
+    background-color: #0f0f0f;
+}
+
+/* Card base */
+.menu-card {
+    background: #1a1a1a;
+    border-radius: 16px;
+    border: none;
+    /* quitamos cualquier borde */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Neon difuminado elegante en hover */
+.menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 0 12px rgba(255, 210, 120, 0.35),
+        0 0 28px rgba(255, 210, 120, 0.25),
+        0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Espaciado extra opcional */
+.menu-card {
     margin-bottom: 20px;
-    /* Margen extra por abajo */
 }
 
-/* Efecto al pasar el ratón para que se sienta interactivo */
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Ajuste específico para la etiqueta de fecha */
-.badge {
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    /* Un pequeño resplandor para que resalte en el fondo oscuro */
-    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.2);
-}
-
-/* Para que el texto largo no desajuste la altura de las cartas */
+/* Ajuste para título largo */
 .card-title {
     min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Precio dorado elegante */
+.menu-price {
+    color: #ffd57a;
+    font-weight: 600;
+}
+
+/* Badge fecha más sobrio */
+.menu-date-badge {
+    background-color: #1f1f1f !important;
+    color: #ffd57a !important;
+    border: none;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Botón elegante oscuro */
+.menu-cta {
+    background-color: #2a2a2a;
+    color: #ffd57a;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.menu-cta:hover {
+    background-color: #242424;
+    box-shadow: 0 0 12px rgba(255, 210, 120, 0.35);
 }

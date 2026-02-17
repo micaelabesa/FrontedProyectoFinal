@@ -23,6 +23,7 @@ import { GestionMesas } from './Pages/gestion-mesas/gestion-mesas';
 import { CalendarioMenus } from './Pages/calendario-menus/calendario_reservas.';
 import { MisDatos } from './Pages/mis-datos/mis-datos';
 import { MenuDetail } from './Pages/menu-detail/menu-detail';
+import { Aboutus } from './Pages/aboutus/aboutus';
 
 
 export const routes: Routes = [
@@ -35,6 +36,7 @@ export const routes: Routes = [
     { path: 'registro', component: Registro },
     { path: 'lista_platos', component: ListaPlatos },
     { path: 'menus/:id', component: MenuDetail },
+    { path: 'about-us', component: Aboutus },
     { path: 'resenas', component: ResenasComponent },
 
     // --- PROTEGIDAS ---

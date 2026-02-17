@@ -1,81 +1,4 @@
 
-
-
-<!-- <section class="card">
-    <div class="header-actions">
-        <button class="btn-nav" routerLink="/perfil-usuario">
-            <i class="bi bi-arrow-left me-2"></i> Volver al Perfil
-        </button>
-
-        <button class="btn-nav" routerLink="/calendario" style="border-color: #e6dcc9; color: #e6dcc9;">
-            <i class="bi bi-calendar3 me-2"></i> Ver Calendario
-        </button>
-    </div>
-
-    <h1 class="card-title">Mis <span style="color: #e6dcc9;">Reservas</span></h1>
-
-    @if (loading()) {
-    <p class="state">Cargando tus reservas…</p>
-    }
-    @if (!loading() && error()) {
-    <p class="state" style="color: #ffb4b4;">{{ error() }}</p>
-    }
-
-    @if (!loading() && !error() && reservas().length === 0) {
-    <div class="state">
-        <i class="bi bi-calendar-x mb-2" style="font-size: 2rem; display: block;"></i>
-        No tienes reservas todavía.
-    </div>
-    }
-
-    @if (!loading() && !error() && reservas().length > 0) {
-    <div class="res-list">
-        @for (r of reservas(); track r.id) {
-        <article class="res-item">
-            <div class="res-grid">
-                <div class="cell">
-                    <span class="label">Fecha</span>
-                    <span class="value">{{ r.fecha }}</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Hora</span>
-                    <span class="value">{{ formatearHora(r.hora) }} hs</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Personas</span>
-                    <span class="value">{{ r.party_size }}</span>
-                </div>
-
-                <div class="cell">
-                    <span class="label">Estado</span>
-                    <span class="value" [style.color]="r.estado === 'confirmada' ? '#96ffbe' : ''">
-                        {{ estadoLabel(r.estado) }}
-                    </span>
-                </div>
-            </div>
-
-            <div class="actions">
-                <button class="btn-outline" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada'">
-                    Cancelar Reserva
-                </button>
-
-                <button class="btn-gold" (click)="resenar(r)" [disabled]="!puedeResenar(r)">
-                    {{ r.resena ? 'Editar Reseña' : 'Escribir Reseña' }}
-                </button>
-            </div>
-
-            @if (r.resena) {
-            <p class="review">
-                <i class="bi bi-quote me-2"></i>{{ r.resena }}
-            </p>
-            }
-        </article>
-        }
-    </div>
-    }
-</section> -->
 <section class="card">
     <div class="header-actions">
         <button class="btn-nav" routerLink="/perfil-usuario">
@@ -105,18 +28,13 @@
             </div>
 
             <div class="actions">
-                <button class="btn-outline" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada'">
-                    Cancelar Reserva
+                <button class="btn-outline" (click)="cancelar(r)" [disabled]="r.estado === 'cancelada' || esFechaPasada(r)">
+                    {{ esFechaPasada(r) ? 'Reserva finalizada' : 'Cancelar Reserva' }}
                 </button>
 
                 <button class="btn-gold" (click)="manejarResena(r)">
                     {{ r.resena_id ? 'Editar mi opinión' : 'Escribir Reseña' }}
                 </button>
-                <!-- <div style="margin-top:10px; padding:10px; border:1px dashed #666;">
-                    <div>DEBUG resena_id: {{ r.resena_id }}</div>
-                    <div>DEBUG comentario_resena: "{{ r.comentario_resena }}"</div>
-                    <div>DEBUG puntuacion: {{ r.puntuacion }}</div>
-                </div> -->
 
             </div>
 
