@@ -77,12 +77,19 @@ export class Registro {
       console.error('Error en el registro:', error);
 
       // 4. SweetAlert de fracaso
-      Swal.fire({
-        title: 'Error',
-        text: 'No se pudo completar el registro. Inténtalo de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'Cerrar'
-      });
+Swal.fire({
+  title: 'Usuario ya registrado',
+  text: 'Parece que ya tienes una cuenta con nosotros.',
+  icon: 'info', // A veces el icono de info es menos "agresivo" que el de error
+  showCancelButton: true,
+  confirmButtonText: 'Ir al Login',
+  cancelButtonText: 'Revisar datos',
+  confirmButtonColor: '#ffc107',
+}).then((result) => {
+  if (result.isConfirmed) {
+    this.router.navigate(['/login']);
+  }
+});
     }
   } else {
     // Opcional: marcar errores si el formulario no es válido al clicar

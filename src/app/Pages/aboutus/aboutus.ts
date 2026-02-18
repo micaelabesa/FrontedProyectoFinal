@@ -34,7 +34,7 @@ Hoy construyo aplicaciones combinando lógica, claridad y enfoque práctico. Me 
     },
     {
       id: 2,
-      nombre: 'Micaela Besa',
+      nombre: 'Micaela Besasso',
       rol: 'Full Stack Developer',
       descripcion: `Soy desarrolladora Full Stack argentina con base en Formentera. Migré sola a los 24 años, una experiencia que fortaleció mi capacidad de adaptación y mi autonomía profesional.
 
@@ -56,18 +56,6 @@ Actualmente me enfoco en el desarrollo Frontend, construyendo interfaces intuiti
       foto: 'assets/images/Maria-perfil.jpeg',
       tags: ['Frontend', 'Disciplina', 'Trabajo en Equipo']
     },
-    {
-      id: 4,
-      nombre: 'David López',
-      rol: 'Full Stack Developer',
-      descripcion: `Soy profesional con experiencia tanto en desarrollo de software como en soluciones técnicas aplicadas. He trabajado como desarrollador en Indra y como técnico de domótica en Alfred Smart, especializándome en automatización y sistemas inteligentes.
-
-Mi perfil combina experiencia tecnológica y práctica, lo que me permite abordar los proyectos desde una perspectiva integral y resolutiva.
-
-Me adapto con facilidad a distintos entornos y disfruto integrando soluciones que conecten tecnología, eficiencia y funcionalidad real.`,
-      foto: 'assets/images/david-perfil.jpeg',
-      tags: ['Integración Tecnológica', 'Soluciones Prácticas']
-    }
   ]);
 
 }

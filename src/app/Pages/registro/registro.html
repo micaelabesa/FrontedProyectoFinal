@@ -37,8 +37,8 @@
             <div class="col-12 col-md-6 mb-3">
                 <label class="form-label">DNI/NIE</label>
                 <input type="text" class="form-control" formControlName="dni">
-                @if(checkError('dni', 'dniValidator')){
-                <p class="error">El formato de tu DNI/NIE no es válido</p>
+                @if(checkError('dni', 'formatoInvalido')){
+                <p class="error">Tu DNI/NIE no es válido, revisa el formato</p>
                 }
                 @if(checkError('dni', 'required')){
                 <p class="error">El campo dni es requerido!</p>
@@ -48,6 +48,9 @@
             <div class="col-12 col-md-6 mb-3">
                 <label class="form-label">Edad</label>
                 <input type="text" class="form-control" formControlName="edad">
+                    @if(checkError('edad', 'menorDeEdad')){
+                    <p class="error">Debes ser mayor de edad para registrarte!</p>
+                    }
             </div>
         </div>
         <div class="mb-3">
@@ -68,12 +71,6 @@
             <p class="error">El campo telefono es requerido!</p>
             }
         </div>
-
-        <!-- <div class="mb-3">
-            <label class="form-label">Fecha de nacimiento</label>
-            <input type="date" class="form-control" formControlName="fechaNacimiento">
-        </div> -->
-
 
         <div class="mb-3">
             <label class="form-label">Alergias</label>
