@@ -17,7 +17,7 @@
             }
 
             @if (isAdmin) {
-            <a class="pill" routerLink="/admin-dashnoard" style="color: #ffc107;">Panel Admin</a>
+            <a class="pill" routerLink="/admin-dashboard" style="color: #ffc107;">Panel Admin</a>
             } @else {
             <a class="pill" routerLink="/perfil-usuario">Mi Cuenta</a>
             }
@@ -60,7 +60,7 @@
 
             @if (isAdmin) {
             <li>
-                <a class="drawer-pill" routerLink="/admin-dashnoard" (click)="closeMenu()">Panel Administración</a>
+                <a class="drawer-pill" routerLink="/admin-dashboard" (click)="closeMenu()">Panel Administración</a>
             </li>
             } @else {
             <li>

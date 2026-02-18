@@ -42,11 +42,11 @@ export const routes: Routes = [
     // --- PROTEGIDAS ---
     { path: 'perfil-usuario', component: PerfilUsuario, canActivate: [authGuard] },
     { path: 'reserva', component: Reserva, canActivate: [authGuard] },
-     { path: 'mis-datos', component: MisDatos, canActivate: [authGuard] },
+    { path: 'mis-datos', component: MisDatos, canActivate: [authGuard] },
     
     // Rutas de Admin
     { path: 'admin', component: PerfilAdmin, canActivate: [authGuard] },
-    { path: 'admin-dashnoard', component: AdminDashboard, canActivate: [authGuard] }, // 
+    { path: 'admin-dashboard', component: AdminDashboard, canActivate: [authGuard] }, // 
     { path: 'mis-reservas', component: MisReservas, canActivate: [authGuard] },
     { path: 'admin/reservas', component: GestionReservas, canActivate: [authGuard] },
     { path: 'calendario', component: CalendarioMenus, canActivate: [authGuard] },
@@ -56,6 +56,8 @@ export const routes: Routes = [
     { path: 'admin/edit-plato/:id', component: EditPlato, canActivate: [authGuard] },
     { path: 'admin/edit-menu/:id', component: EditMenu, canActivate: [authGuard] },
     { path: 'admin/gestion-mesas', component: GestionMesas, canActivate: [authGuard] },
+    
+
 
     // --- RUTA 404 ---
     { path: '**', component: NotFound }

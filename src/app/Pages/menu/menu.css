@@ -62,3 +62,35 @@
     background-color: #242424;
     box-shadow: 0 0 12px rgba(255, 210, 120, 0.35);
 }
+
+.back-link {
+    margin-bottom: 1.25rem;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    padding: .65rem 1rem;
+    border-radius: 999px;
+    text-decoration: none;
+
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+
+    font-weight: 700;
+    letter-spacing: .2px;
+    backdrop-filter: blur(6px);
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+}

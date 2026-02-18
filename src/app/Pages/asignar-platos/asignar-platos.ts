@@ -26,7 +26,7 @@ export class AsignarPlatos implements OnInit { // Implementamos OnInit
   menuId!: number;
   listaPlatosDB: IPlato[] = []; 
   platosParaAsignar: IVinculoPlato[] = []; 
-  returnUrl = '/admin-dashnoard';
+  returnUrl = '/admin-dashboard';
 
   // --- PASO 1: CARGAR LOS DATOS AL ENTRAR ---
   async ngOnInit() {

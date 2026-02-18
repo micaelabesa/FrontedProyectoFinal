@@ -12,7 +12,7 @@ export class PerfilAdmin {
   private router = inject(Router);
   
   irAGestionarMenus() {
-    this.router.navigate(['admin-dashnoard']);
+    this.router.navigate(['admin-dashboard']);
   }
 
   irAVerResenas() {

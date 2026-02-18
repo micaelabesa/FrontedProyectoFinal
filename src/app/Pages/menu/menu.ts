@@ -16,6 +16,10 @@ export class Menu {
   arrMenu = signal<IMenu[]>([]);
   private MenuService = inject(Menus);
 
+  // backLink = '/landing';
+
+ 
+
   async ngOnInit() {
     try {
       const response = await this.MenuService.getAll();
@@ -23,5 +27,14 @@ export class Menu {
     } catch (error) {
       console.error("Error al cargar menús", error);
     }
+   
+    
+  
   }
+
+  // private setBackLink() {
+  //   const token = localStorage.getItem('token');
+  //   this.backLink = token ? '/admin-dashboard' : '/landing';
+
+  // }
 }

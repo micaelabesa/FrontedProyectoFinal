@@ -7,7 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-gestion-reservas', // Tu selector
   standalone: true,
-  imports: [NgClass, RouterLink],
+  imports: [NgClass, RouterLink, DatePipe], 
   templateUrl: './gestion-reservas.html',
   styleUrl: './gestion-reservas.css',
 })

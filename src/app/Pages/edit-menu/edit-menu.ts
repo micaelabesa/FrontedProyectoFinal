@@ -69,13 +69,13 @@ export class EditMenu implements OnInit {
         confirmButtonColor: '#ffc107'
       });
       
-      this.router.navigate(['/admin-dashnoard']); // Ajusta a tu ruta de gestión
+      this.router.navigate(['/admin-dashboard']); // Ajusta a tu ruta de gestión
     } catch (error) {
       Swal.fire('Error', 'No se pudo actualizar el menú', 'error');
     }
   }
 
   volver() {
-    this.router.navigate(['/admin-dashnoard']);
+    this.router.navigate(['/admin-dashboard']);
   }
 }
