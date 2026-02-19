@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Platos as PlatosService } from '../Services/platos';
@@ -17,6 +17,7 @@ export class EditPlato implements OnInit {
   platoService = inject(PlatosService);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  private cdr = inject(ChangeDetectorRef);
 
   // Variables de control
   platoId!: number;
@@ -88,6 +89,9 @@ export class EditPlato implements OnInit {
       
       // Actualizamos el campo imagen_url en el formulario
       this.registroForm.patchValue({ imagen_url: this.imagenUrlSubida });
+
+      // Forzamos la detección de cambios para que la preview se actualice
+      this.cdr.detectChanges();
       
       Swal.fire({
         title: 'Imagen actualizada',

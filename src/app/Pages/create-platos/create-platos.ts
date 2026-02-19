@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Platos as PlatosService } from '../../Services/platos';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class CreatePlato {
   platoService = inject(PlatosService);
   router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   // Variable para guardar la URL de la imagen que nos dé Cloudinary
   imagenUrlSubida: string = '';
@@ -73,9 +74,8 @@ async onFileSelected(event: any) {
       
       this.registroForm.patchValue({ imagen_url: this.imagenUrlSubida });
       
-      // Forzamos a Angular a que detecte el cambio de inmediato
-      this.registroForm.get('imagen_url')?.setValue(this.imagenUrlSubida);
-      this.registroForm.updateValueAndValidity();
+      // Forzamos a Angular a que detecte el cambio y actualice la vista
+      this.cdr.detectChanges();
 
       Swal.fire({ icon: 'success', title: '¡Imagen lista!', timer: 1000, showConfirmButton: false });
     } else {
